@@ -1,0 +1,10 @@
+@import './variables';
+
+@mixin btn {
+  all: unset;
+  padding: 0.7rem 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 300ms ease;
+}

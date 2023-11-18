@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700&display=swap');
+@import './styles/helper/helper';
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+// utilities
+.btn {
+  &-primary {
+    @include btn;
+    border: 1px solid $primary-clr;
+    background-color: $primary-clr;
+    color: #fff;
+
+    &:hover {
+      background-color: darken($primary-clr, 8%);
+    }
+  }
+
+  &-secondary {
+    @include btn;
+    border: 1px solid $primary-clr;
+    color: $primary-clr;
+
+    &:hover {
+      background-color: $primary-clr;
+      color: #fff;
+    }
+  }
+}

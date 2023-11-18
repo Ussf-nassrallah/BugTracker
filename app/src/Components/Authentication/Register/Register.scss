@@ -1,0 +1,178 @@
+@import '../../../styles/helper/helper';
+
+.register {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  position: relative;
+
+  &__cta {
+    background: linear-gradient(rgba($primary-clr, 0.8), rgba($primary-clr, 0.8)), url('../../../assets/auth-img.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+
+    .logo {
+      padding: 2rem 1rem;
+    }
+
+    .register__cta__content {
+      max-width: 600px;
+      margin: auto;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #fff;
+      padding-left: 5rem;
+
+      .icon {
+        font-size: 2rem;
+        color: #ED5AB3;
+      }
+
+      .circles {
+        position: absolute;
+        right: 0;
+        top: -5rem;
+      }
+
+      p {
+        font-size: 1.3rem;
+        line-height: 1.6;
+        margin-top: 0.7rem;
+        font-weight: 300;
+      }
+
+      .vector1 {
+        position: absolute;
+        right: 0;
+        bottom: -2rem;
+      }
+    }
+
+    .vector {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+      }
+  }
+
+  &__form {
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    height: 100vh;
+    overflow-y: auto;
+
+    &-header {
+      padding: 2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      a {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        color: #8692A6;
+        font-weight: 600;
+
+        .icon {
+          display: flex;
+          color: #8692A6;
+          font-size: 1.5rem;
+          margin-right: 0.3rem;
+        }
+
+        &:hover {
+          color: $primary-clr;
+
+          .icon {
+            color: $primary-clr;
+          }
+        }
+      }
+
+      p {
+        font-weight: 600;
+        color: $primary-clr
+      }
+    }
+
+    .form {
+      max-width: 500px;
+      margin: auto;
+
+      &__intro {
+        // padding: 0 5rem;
+        margin-bottom: 2rem;
+
+        h1 {
+          font-size: 3rem;
+          margin: 0;
+          color: $primary-clr;
+        }
+
+        p {
+          color: #696F79;
+          line-height: 1.6;
+          margin-top: 0.6rem;
+        }
+      }
+
+      div {
+        margin-bottom: 1rem;
+      }
+
+      &__label {
+        display: block;
+        color: #696F79;
+        padding-bottom: 0.5rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+
+        span {
+          color: $primary-clr;
+        }
+      }
+
+      &__input {
+        all: unset;
+        padding: 0.5rem 1rem;
+        border-radius: 5px;
+        border: 1px solid #8692A6;
+        width: calc(100% - 2rem);
+        font-size: 0.9rem;
+
+        &:focus {
+          border-color: $primary-clr;
+          box-shadow: 0 0 10px rgba($primary-clr, 0.2);
+        }
+      }
+
+      .gender_and_age {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 0;
+      }
+
+      .btn-primary {
+        width: calc(100% - 2rem);
+        text-align: center;
+      }
+
+      .end__form {
+        margin-top: 1rem;
+        margin-bottom: 2rem;
+
+        a {
+          text-decoration: none;
+          color: $primary-clr;
+        }
+      }
+    }
+  }
+}
