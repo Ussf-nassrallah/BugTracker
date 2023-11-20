@@ -1,0 +1,86 @@
+@import '../../../styles/helper/helper';
+
+.sidebar {
+  background-color: $primary-clr;
+  height: 100vh;
+  min-width: 300px;
+  padding: 1rem;
+  position: relative;
+
+  &__links {
+    margin-top: 2rem;
+    li {
+      color: #fff;
+      list-style: none;
+      padding: 1rem;
+      border-radius: 5px;
+
+      display: flex;
+      align-items: center;
+      opacity: 0.6;
+
+      .icon {
+        display: flex;
+        font-size: 1.3rem;
+        margin-right: 0.6rem;
+      }
+
+      &.active {
+        opacity: 1;
+        background-color: lighten($primary-clr, 5%);
+      }
+    }
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    width: calc(100% - 1rem);
+
+    position: absolute;
+    bottom: 1rem;
+
+    &__img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: lighten($primary-clr, 5%);
+      margin-right: 0.5rem;
+
+      img {
+        width: 100%;
+        display: block;
+        border-radius: 50%;
+      }
+    }
+
+    &__info {
+      display: flex;
+      align-items: center;
+    
+      p {
+        font-size: 0.8rem;
+      }
+    }
+
+    .logout {
+      background-color: lighten($primary-clr, 5%);
+      width: 40px;
+      height: 40px;
+      border-radius: 5px;
+      margin-right: 1rem;
+      margin-left: 0.5rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .icon {
+        display: flex;
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
