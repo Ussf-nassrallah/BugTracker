@@ -30,9 +30,13 @@ def signup():
     email = request.json.get('email')
     password = request.json.get('password')
     username = request.json.get('username')
-    roles = request.json.get('roles')
+    role = request.json.get('role')
+    age = request.json.get('age')
+    phone = request.json.get('phone')
+    gender = request.json.get('gender')
     
-    new_user = User(email=email, password=generate_password_hash(password, method='pbkdf2:sha256'), username=username, roles=roles)
+    new_user = User(email=email, password=generate_password_hash(password, method='pbkdf2:sha256'), username=username,
+                    role=role, phone=phone, gender=gender, age=age)
     storage.new(new_user)
     storage.save()
-    return jsonify({"message": "User created", "status": 201}), 201
+    return jsonify(new_user.to_dict()), 201

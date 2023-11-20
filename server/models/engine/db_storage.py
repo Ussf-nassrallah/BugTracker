@@ -7,9 +7,12 @@ import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from models.base_model import Base
+from models.project import Project
+from models.member import Member
+from models.ticket import Ticket
 
 
-classes = {"User": User}
+classes = {"User": User, "Project": Project, "Member": Member, "Ticket": Ticket}
 
 
 class DBStorage:
