@@ -28,3 +28,12 @@ def get_projects():
     for project in projects.values():
         projects_list.append(project.to_dict())
     return jsonify(projects_list), 200
+
+
+@app_views.route('/projects/<project_id>', methods=['GET'])
+def get_project_by_id(project_id):
+    """get project by id"""
+    project = storage.get(Project, project_id)
+    if project is None:
+        abort(404)
+    return jsonify(project.to_dict()), 200

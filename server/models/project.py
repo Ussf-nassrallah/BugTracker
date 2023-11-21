@@ -11,7 +11,7 @@ from models.base_model import Base
 class Project(Base):
     '''project model'''
     __tablename__ = 'projects'
-    id = Column(CHAR(60), primary_key=True, default=str(uuid.uuid4()), nullable=False)
+    id = Column(String(60), primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False)
     name = Column(String(128), nullable=False, unique=True)
     description = Column(String(256), nullable=False)
     created_at = Column(DateTime, default=datetime.datetime.utcnow())

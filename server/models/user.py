@@ -11,7 +11,7 @@ from models.base_model import Base
 class User(Base):
     """user model"""
     __tablename__ = 'users'
-    id = Column(CHAR(60), primary_key=True, default=str(uuid.uuid4()), nullable=False)
+    id = Column(String(60), primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False)
     username = Column(String(128), nullable=False, unique=True)
     email = Column(String(128), nullable=False, unique=True)
     password = Column(String(256), nullable=False)

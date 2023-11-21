@@ -11,7 +11,7 @@ from models.base_model import Base
 class Ticket(Base):
     """ticket model"""
     __tablename__ = 'tickets'
-    id = Column(CHAR(60), primary_key=True, default=str(uuid.uuid4()), nullable=False)
+    id = Column(String(60), primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False)
     title = Column(String(128), nullable=False, unique=True)
     description = Column(String(256), nullable=False)
     ticket_type = Column(String(128), nullable=False)
