@@ -5,9 +5,11 @@ from flask_migrate import Migrate
 from api.v1.views import app_views
 from models import storage
 from api.v1.extensions import db
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 app.register_blueprint(app_views)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:43211234@localhost:3306/orm_db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
