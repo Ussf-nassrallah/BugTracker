@@ -24,6 +24,7 @@ class User(db.Model):
     role = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
     updated_at = db.Column(db.DateTime, default=datetime.utcnow())
+    members = db.relationship("Member", backref="user_ids", cascade="all, delete-orphan")
     projects = db.relationship("Project", backref="created_by_user", cascade="all, delete-orphan")
     tickets = db.relationship("Ticket", backref="created_by_user", cascade="all, delete-orphan")
 
