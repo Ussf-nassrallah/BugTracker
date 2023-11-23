@@ -1,30 +1,40 @@
 #!/usr/bin/python3
 """user model"""
 import uuid
-from sqlalchemy import Column, String, Integer, ForeignKey, Table
-from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.mssql import CHAR
-from models.base_model import Base
+from datetime import datetime
+from api.v1.extensions import db
 
 
-
-class User(Base):
+class User(db.Model):
     """user model"""
-    __tablename__ = 'users'
-    id = Column(String(60), primary_key=True, default=lambda: str(uuid.uuid4()), nullable=False)
-    username = Column(String(128), nullable=False, unique=True)
-    email = Column(String(128), nullable=False, unique=True)
-    password = Column(String(256), nullable=False)
-    gender = Column(String(128), nullable=False)
-    age = Column(Integer, nullable=False)
-    phone = Column(String(128), nullable=False)
-    role = Column(String(128), nullable=False)
-    projects = relationship("Project", backref="created_by_user")
-    tickets = relationship("Ticket", backref="created_by_user")
-    
-    def to_dict(self):
+
+    __tablename__ = "users"
+    id = db.Column(
+        db.String(60),
+        primary_key=True,
+        default=lambda: str(uuid.uuid4()),
+        nullable=False,
+    )
+    username = db.Column(db.String(128), nullable=False, unique=True)
+    email = db.Column(db.String(128), nullable=False, unique=True)
+    password = db.Column(db.String(256), nullable=False)
+    gender = db.Column(db.String(128), nullable=False)
+    age = db.Column(db.Integer, nullable=False)
+    phone = db.Column(db.String(128), nullable=False)
+    role = db.Column(db.String(128), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow())
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow())
+    projects = db.relationship("Project", backref="created_by_user", cascade="all, delete-orphan")
+    tickets = db.relationship("Ticket", backref="created_by_user", cascade="all, delete-orphan")
+
+    def as_dict(self):
         """returns a dictionary containing all keys/values of __dict__"""
-        new_dict = dict(self.__dict__)
-        if '_sa_instance_state' in new_dict:
-            del new_dict['_sa_instance_state']
-        return new_dict
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+
+    def get_projects(self):
+        """returns a list of projects"""
+        return [project.as_dict() for project in self.projects]
+
+    def get_tickets(self):
+        """returns a list of tickets"""
+        return [ticket.as_dict() for ticket in self.tickets]
