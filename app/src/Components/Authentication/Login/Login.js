@@ -18,6 +18,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+
   const handleLogin = async (e) => {
     e.preventDefault();
     const request = { email: email, password: password };
@@ -25,16 +26,20 @@ const Login = () => {
     await axios
       .post("http://localhost:5000/api/v1/auth", request)
       .then((data) => {
+        // console.log(data.data.data)
         localStorage.setItem("token", data.data);
         navigate("/dashboard");
       })
       .catch((error) => {
         setError(true);
+        console.log(error);
         setInterval(() => {
           setError(false);
-        }, 3000);
+        }, 7000);
       });
   };
+
+
   return (
     <main className="login">
       <section className="login__cta">
@@ -76,6 +81,13 @@ const Login = () => {
             </p>
           </div>
 
+          {/* Error */}
+          {error ? (
+            <div>
+              <p className="error">invalid email or password</p>
+            </div>
+          ) : null}
+
           {/* user email */}
           <div>
             <label for="email" className="form__label">
@@ -84,7 +96,7 @@ const Login = () => {
             <input
               id="email"
               type="email"
-              className="form__input"
+              className={error ? "form__input form__input__error" : "form__input"}
               name="email"
               placeholder="Enter email address"
               required
@@ -99,17 +111,12 @@ const Login = () => {
             <input
               id="password"
               type="password"
-              className="form__input"
+              className={error ? "form__input form__input__error" : "form__input"}
               name="password"
               required
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          {error ? (
-            <div>
-              <p className="error">invalid email or password</p>
-            </div>
-          ) : null}
 
           <button type="submit" className="btn-primary">
             Login

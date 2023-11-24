@@ -152,6 +152,11 @@
         }
       }
 
+      &__input__error {
+        border-color: red !important;
+        color: red !important;
+      }
+
       .gender_and_age {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -176,9 +181,15 @@
 
       .error {
         color: red;
+        background-color: rgba(red, 0.1);
         font-size: 0.8rem;
         margin-top: 0.5rem;
         text-align: center;
+        font-size: 0.9rem;
+        padding: 0.7rem;
+        border: 1px red solid;
+        border-radius: 5px;
+        text-transform: capitalize;
       }
     }
   }

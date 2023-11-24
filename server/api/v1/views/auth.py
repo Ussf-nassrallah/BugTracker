@@ -28,15 +28,33 @@ def auth():
     return jsonify({"data": token, "status": 200}), 200
 
 
+def validate_signup_data(data):
+    required_fields = ["email", "password", "username", "role", "age", "phone", "gender"]
+
+    for field in required_fields:
+        if field not in data:
+            return False, f"Missing required field: {field}"
+
+    # Additional validation logic can be added here based on your requirements
+    return True, None
+
+
 @app_views.route("/signup", methods=["POST"])
 def signup():
-    email = request.json.get("email")
-    password = request.json.get("password")
-    username = request.json.get("username")
-    role = request.json.get("role")
-    age = request.json.get("age")
-    phone = request.json.get("phone")
-    gender = request.json.get("gender")
+    request_data = request.json
+
+    # Validate incoming data
+    is_valid, error_message = validate_signup_data(request_data)
+    if not is_valid:
+        return jsonify({"error": error_message}), 400
+
+    email = request_data["email"]
+    password = request_data["password"]
+    username = request_data["username"]
+    role = request_data["role"]
+    age = request_data["age"]
+    phone = request_data["phone"]
+    gender = request_data["gender"]
 
     new_user = User(
         email=email,
