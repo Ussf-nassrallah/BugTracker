@@ -7,9 +7,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-body {
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -34,6 +31,39 @@ body {
     &:hover {
       background-color: $primary-clr;
       color: #fff;
+    }
+  }
+}
+
+.form {
+  div {
+    margin-bottom: 1rem;
+  }
+
+  &__input {
+    // all: unset;
+    padding: 0.5rem 1rem;
+    border-radius: 3px;
+    border: 1px solid #8692A6;
+    width: calc(100% - 2rem);
+    font-size: 0.9rem;
+    outline: none;
+
+    &:focus {
+      border-color: $primary-clr;
+      box-shadow: 0 0 10px rgba($primary-clr, 0.2);
+    }
+  }
+
+  &__label {
+    display: block;
+    color: #696F79;
+    padding-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+
+    span {
+      color: $primary-clr;
     }
   }
 }

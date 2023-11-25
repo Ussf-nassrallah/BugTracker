@@ -1,0 +1,48 @@
+@import '../../../styles/helper/helper';
+
+.projects {
+  height: 100vh;
+  overflow-y: auto;
+
+  /* Add custom styles for the scrollbar */
+  &::-webkit-scrollbar {
+    width: 8px; /* Adjust the width as needed */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #d4d4d4; /* Color of the thumb */
+    border-radius: 6px; /* Round the corners of the thumb */
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Color of the track */
+  }
+
+  border-right: 1px solid #ccc;
+  max-width: 450px;
+
+  &__header {
+    padding: 1rem;
+    
+    .new__project {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__search {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem 0;
+
+      .form__input {
+        margin-right: 0.5rem;
+      }
+    }
+  }
+
+  &.hide {
+    display: none;
+  }
+}
