@@ -10,7 +10,7 @@ function App() {
     <>
       <Router>
         <Routes>
-          <Route path='/' Component={Dashboard} />
+          <Route path='/dashboard' Component={Dashboard} />
           <Route path='/register' Component={Register} />
           <Route path='/login' Component={Login} />
         </Routes>

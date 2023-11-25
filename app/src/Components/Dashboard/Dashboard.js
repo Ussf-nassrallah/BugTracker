@@ -1,145 +1,74 @@
 import React, { useState } from 'react'
-import { MdBugReport, MdLightbulb, MdReportProblem, MdClose } from "react-icons/md";
+import { MdClose } from "react-icons/md";
 import Sidebar from './Sidebar/Sidebar'
+
+import ProjectsList from './Projects/ProjectsList';
+import ProjectDetails from './Projects/ProjectDetails';
 
 import './Dashboard.scss'
 
 const projects = [
   {
     id: 1,
-    titie: 'todo web app',
+    title: 'Todo Web App',
     owner: 'Youssef Nasrallah',
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
-  }
+    description: 'A simple and intuitive web application for managing your daily tasks. Keep track of your to-dos, set priorities, and mark tasks as completed.'
+  },
+  {
+    id: 2,
+    title: 'E-commerce Platform',
+    owner: 'John Doe',
+    description: 'An online shopping platform where users can browse products, add items to their cart, and complete the checkout process. Includes user accounts, product reviews, and order history.'
+  },
+  {
+    id: 3,
+    title: 'Blog Application',
+    owner: 'Jane Smith',
+    description: 'Create, edit, and publish blog posts with this versatile blog application. Users can comment on posts, and there is an admin panel for managing content.'
+  },
+  {
+    id: 4,
+    title: 'Weather App',
+    owner: 'Chris Johnson',
+    description: 'Get real-time weather updates for your location or any city in the world. View current conditions, forecasts, and detailed weather information.'
+  },
+  {
+    id: 5,
+    title: 'Project Management Tool',
+    owner: 'Alice Williams',
+    description: 'A comprehensive project management tool for teams. Plan tasks, assign responsibilities, track progress, and collaborate seamlessly on projects.'
+  },
+  {
+    id: 6,
+    title: 'Fitness Tracker',
+    owner: 'Michael Brown',
+    description: 'Track your fitness journey with this app. Log your workouts, monitor your progress, and set fitness goals. Includes charts and graphs to visualize your achievements.'
+  },
 ];
+
 
 const Dashboard = () => {
   const [form, setForm] = useState(false);
+  const [activeProject, setActiveProject] = useState(0); // 0 represent the index of the project
+  const [projectsList, setProjectsList] = useState(false);
+
+  // console.log(projects[activeProject]);
 
   return (
     <div className='db'>
       <Sidebar />
+
       <div className='db__content'>
-        <div className='projects'>
+        <ProjectsList
+          setForm={setForm}
+          projects={projects}
+          activeProject={activeProject}
+          setActiveProject={setActiveProject}
+          projectsList={projectsList}
+          setProjectsList={setProjectsList}
+        />
 
-          <header className='projects__header'>
-            <div className='new__project'>
-              <h2>Projects</h2>
-              <button className='btn-primary' onClick={() => setForm(true)}>New Project</button>
-            </div>
-
-            <div className='projects__header__search'>
-              <input type='text' placeholder='Search' className='form__input' />
-              <button className='btn-secondary'>Search</button>
-            </div>
-          </header>
-
-          <div className='project active'>
-            <h2 className='project__name'>{projects[0].titie}</h2>
-            <p className='project__owner'><b>Owner: </b>{projects[0].owner}</p>
-            <p className='project__desc'>{projects[0].description}</p>
-            <ul className='project__reports'>
-              <li className='bugs'>
-                <MdBugReport className='icon' />Bugs (3)
-              </li>
-              <li className='issues'>
-                <MdReportProblem className='icon' />Issues (14)
-              </li>
-              <li className='features'>
-                <MdLightbulb className='icon' />Features (14)
-              </li>
-            </ul>
-          </div>
-
-          <div className='project'>
-            <h2 className='project__name'>{projects[0].titie}</h2>
-            <p className='project__owner'><b>Owner: </b>{projects[0].owner}</p>
-            <p className='project__desc'>{projects[0].description}</p>
-            <ul className='project__reports'>
-              <li className='bugs'>
-                <MdBugReport className='icon' />Bugs (3)
-              </li>
-              <li className='issues'>
-                <MdReportProblem className='icon' />Issues (14)
-              </li>
-              <li className='features'>
-                <MdLightbulb className='icon' />Features (14)
-              </li>
-            </ul>
-          </div>
-
-          <div className='project'>
-            <h2 className='project__name'>{projects[0].titie}</h2>
-            <p className='project__owner'><b>Owner: </b>{projects[0].owner}</p>
-            <p className='project__desc'>{projects[0].description}</p>
-            <ul className='project__reports'>
-              <li className='bugs'>
-                <MdBugReport className='icon' />Bugs (3)
-              </li>
-              <li className='issues'>
-                <MdReportProblem className='icon' />Issues (14)
-              </li>
-              <li className='features'>
-                <MdLightbulb className='icon' />Features (14)
-              </li>
-            </ul>
-          </div>
-
-          <div className='project'>
-            <h2 className='project__name'>{projects[0].titie}</h2>
-            <p className='project__owner'><b>Owner: </b>{projects[0].owner}</p>
-            <p className='project__desc'>{projects[0].description}</p>
-            <ul className='project__reports'>
-              <li className='bugs'>
-                <MdBugReport className='icon' />Bugs (3)
-              </li>
-              <li className='issues'>
-                <MdReportProblem className='icon' />Issues (14)
-              </li>
-              <li className='features'>
-                <MdLightbulb className='icon' />Features (14)
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className='project__details'>
-          <div className='project'>
-            <div className='project__header'>
-              <h2>{projects[0].titie}</h2>
-              <div className='project__header__buttons'>
-                <button className='btn-primary'>Project Tickets</button>
-                <button className='btn-secondary'>Edit Project</button>
-              </div>
-            </div>
-
-            <div className='project__info'>
-              <div className='project__owner'>
-                <h3>Project Owner</h3>
-                <p>Youssef Nasrallah</p>
-              </div>
-
-              <div className='project__desc'>
-                <h3>Project Description</h3>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-              </div>
-
-              <div className='project__collaborators'>
-                <h3>Project Collaborators</h3>
-                <ul>
-                  <li>Youssef Nassrallah</li>
-                  <li>Redwan Ben Yecho</li>
-                </ul>
-              </div>
-
-              <div className='project__status'>
-                <h3>Project Status</h3>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ProjectDetails project={projects[activeProject]} setProjectsList={setProjectsList} projectsList={projectsList} />
 
         {form && <div className='project__form'>
           <form className='form'>

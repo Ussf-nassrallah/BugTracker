@@ -1,0 +1,70 @@
+@import '../../../styles/helper/helper';
+
+.projects {
+  .project {
+    border-bottom: 1px solid #ccc;
+    padding: 1rem;
+    cursor: pointer;
+  
+    &__name {
+      text-transform: capitalize;
+      margin-bottom: 0.5rem;
+    }
+  
+    &__owner {
+      margin-bottom: 0.5rem;
+    }
+  
+    &__desc {
+      font-size: 0.9rem;
+    }
+  
+    &__reports {
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1rem 0;
+      font-weight: bold;
+  
+      li {
+        display: flex;
+        align-items: center;
+        font-size: 0.85rem;
+        padding: 0.2rem 0.7rem;
+        border-radius: 1rem;
+  
+        .icon {
+          font-size: 1.125rem;
+          display: flex;
+          margin-right: 0.4rem;
+        }
+  
+        &.bugs {
+          color: #ae1111;
+          background-color: lighten(#ae1111, 55%);
+        }
+  
+        &.issues {
+          color: #d0782e;
+          background-color: lighten(#d0782e, 40%);
+        }
+  
+        &.features {
+          color: #1640D6;
+          background-color: lighten(#1640D6, 48%);
+        }
+      }
+    }
+  
+    transition: background-color 300ms ease;
+    &:hover {
+      background-color: lighten($secondary-clr, 34%);
+    }
+  
+    &.active {
+      background-color: lighten($secondary-clr, 34%);
+      border-left: $secondary-clr solid 3px;
+    }
+  }
+}
