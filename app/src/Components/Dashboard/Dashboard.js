@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
-import { MdClose } from "react-icons/md";
-import Sidebar from './Sidebar/Sidebar'
+import React, { useState, useEffect } from 'react'
+import { decodeToken } from "react-jwt";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
+// Icons
+import { MdClose } from "react-icons/md";
+// Components
+import Sidebar from './Sidebar/Sidebar'
 import ProjectsList from './Projects/ProjectsList';
 import ProjectDetails from './Projects/ProjectDetails';
-
+// styles
 import './Dashboard.scss'
 
 const projects = [
@@ -46,13 +51,61 @@ const projects = [
   },
 ];
 
-
 const Dashboard = () => {
   const [form, setForm] = useState(false);
   const [activeProject, setActiveProject] = useState(0); // 0 represent the index of the project
   const [projectsList, setProjectsList] = useState(false);
+  const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
-  // console.log(projects[activeProject]);
+  // project info
+  const [projectName, setProjectName] = useState(null);
+  const [projectDescription, setProjectDescription] = useState(null);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  // const [projectOwner, setProjectOwner] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const myDecodedToken = decodeToken(token);
+      setUser(myDecodedToken);
+      // setProjectOwner(user.id);
+      // console.log('token', token);
+      // console.log('DecodedToken', myDecodedToken);
+    } else {
+      console.log('Token not found. User may need to log in.');
+    }
+  }, []);
+
+
+  // console.log(user);
+
+
+  const handleProjects = async (e) => {
+    e.preventDefault();
+
+    const request = {
+      created_by: user.id,
+      name: projectName,
+      description: projectDescription
+    };
+
+    await axios
+      .post("http://127.0.0.1:5000/api/v1/projects", request)
+      .then((data) => {
+        // console.log(data);
+        setIsSuccess(true);
+        setSuccessMessage(data.data.message);
+        setInterval(() => {
+          setIsSuccess(false);
+          setSuccessMessage("");
+        }, 7000);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className='db'>
@@ -71,19 +124,34 @@ const Dashboard = () => {
         <ProjectDetails project={projects[activeProject]} setProjectsList={setProjectsList} projectsList={projectsList} />
 
         {form && <div className='project__form'>
-          <form className='form'>
+          <form className='form' onSubmit={handleProjects}>
             <h2>Create a New Project</h2>
-
+            {isSuccess && <div className='successMessage'>{successMessage}</div>}
             {/* project name */}
             <div>
-              <label for='name' className='form__label'>Project Title<span>*</span></label>
-              <input id='name' name='name' type='text' className='form__input' placeholder='Project Title' />
+              <label htmlFor='name' className='form__label'>Project Title<span>*</span></label>
+              <input
+                id='name'
+                name='name'
+                type='text'
+                className='form__input'
+                placeholder='Project Title'
+                onChange={(e) => setProjectName(e.target.value)}
+              />
             </div>
 
             {/* project Description */}
             <div>
-              <label for='description' className='form__label'>Project Description<span>*</span></label>
-              <textarea id='description' name='description' type='text' className='form__input' placeholder='Project Description'></textarea>
+              <label htmlFor='description' className='form__label'>Project Description<span>*</span></label>
+              <textarea
+                id='description'
+                name='description'
+                type='text'
+                className='form__input'
+                placeholder='Project Description'
+                onChange={(e) => setProjectDescription(e.target.value)}
+              >
+              </textarea>
             </div>
 
             {/* project collaborators */}

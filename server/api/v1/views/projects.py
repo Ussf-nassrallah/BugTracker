@@ -24,7 +24,7 @@ def create_project():
     )
     storage.new(new_project)
     storage.save()
-    return jsonify(new_project.as_dict()), 201
+    return jsonify({"message": "project created successfully", "status": 201, "project": new_project.as_dict()}), 201
 
 
 @app_views.route("/projects", methods=["GET"])
