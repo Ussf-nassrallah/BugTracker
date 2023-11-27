@@ -20,12 +20,26 @@ class Project(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
     updated_at = db.Column(db.DateTime, default=datetime.datetime.utcnow())
     created_by = db.Column(db.String(60), db.ForeignKey("users.id"))
+    link_repo = db.Column(db.String(256), nullable=True)
     members = db.relationship("Member", backref="project_ids")
-    tickets = db.relationship("Ticket", backref="parent_ids", cascade="all, delete-orphan")
+    tickets = db.relationship(
+        "Ticket", backref="parent_ids", cascade="all, delete-orphan"
+    )
+    onwer = db.relationship("User", backref="created_by", cascade="all")
 
     def as_dict(self):
         """returns a dictionary containing all keys/values of __dict__"""
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        return {
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
+            "created_by": self.onwer.as_dict_to_resp(),
+            "link_repo": self.link_repo,
+            "tickets": [ticket.as_dict() for ticket in self.tickets],
+            "members": [member.users.as_dict_to_resp() for member in self.members],
+        }
 
     def get_tickets(self):
         """returns a list of tickets"""

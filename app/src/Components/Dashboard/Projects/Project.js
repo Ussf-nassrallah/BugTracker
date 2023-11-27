@@ -7,8 +7,8 @@ import './Project.scss';
 const Project = ({ project, handleToggleActive, idx, isActive }) => {
   return (
     <div className={idx === isActive ? 'project active' : 'project'} onClick={() => handleToggleActive(idx)}>
-      <h2 className='project__name'>{project.title}</h2>
-      <p className='project__owner'><b>Owner: </b>{project.owner}</p>
+      <h2 className='project__name'>{project.name}</h2>
+      <p className='project__owner'><b>Owner: </b>{project.created_by.username}</p>
       <p className='project__desc'>{project.description}</p>
       <ul className='project__reports'>
         <li className='bugs'>
