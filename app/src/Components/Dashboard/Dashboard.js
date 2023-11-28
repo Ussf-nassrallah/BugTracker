@@ -1,11 +1,15 @@
 import React, { useState } from 'react'
 import { MdClose } from "react-icons/md";
+import { FaTicketAlt } from "react-icons/fa";
+import { MdDescription } from "react-icons/md";
+import { TbStatusChange, TbSticker, TbUser } from "react-icons/tb";
 import Sidebar from './Sidebar/Sidebar'
 
 import ProjectsList from './Projects/ProjectsList';
 import ProjectDetails from './Projects/ProjectDetails';
 
 import './Dashboard.scss'
+import Ticket from './Tickets/Ticket';
 
 const projects = [
   {
@@ -51,6 +55,7 @@ const Dashboard = () => {
   const [form, setForm] = useState(false);
   const [activeProject, setActiveProject] = useState(0); // 0 represent the index of the project
   const [projectsList, setProjectsList] = useState(false);
+  const [ticketDetails, setTicketDetails] = useState(true);
 
   // console.log(projects[activeProject]);
 
@@ -59,16 +64,88 @@ const Dashboard = () => {
       <Sidebar />
 
       <div className='db__content'>
-        <ProjectsList
+        {/* <ProjectsList
           setForm={setForm}
           projects={projects}
           activeProject={activeProject}
           setActiveProject={setActiveProject}
           projectsList={projectsList}
           setProjectsList={setProjectsList}
-        />
+        /> */}
 
-        <ProjectDetails project={projects[activeProject]} setProjectsList={setProjectsList} projectsList={projectsList} />
+        {/* <ProjectDetails project={projects[activeProject]} setProjectsList={setProjectsList} projectsList={projectsList} /> */}
+
+        <div className='tickets'>
+          <header className='tickets__header'>
+            <h3>Todo Web App</h3>
+          </header>
+          <div className='tickets__list'>
+            <div className='tickets__status'>
+              <p className='status'>proposed</p>
+              <div>
+                <Ticket text={'Make demo of the project'} />
+                <Ticket text={'Create presentation'} />
+                <Ticket text={'Create project landing page'} />
+                <Ticket text={'Write comprehensive README.md'} />
+                <Ticket text={'Write blog post'} />
+              </div>
+            </div>
+
+            <div className='tickets__status'>
+              <p className='status'>in progress</p>
+            </div>
+
+            <div className='tickets__status'>
+              <p className='status'>dev complete</p>
+            </div>
+
+            <div className='tickets__status'>
+              <p className='status'>tested</p>
+            </div>
+
+            <div className='tickets__status'>
+              <p className='status'>deployed</p>
+            </div>
+          </div>
+
+          {ticketDetails && <div className='ticket__details'>
+            <div className='ticket__details__info'>
+              <div className='ticket__details__info__name'>
+                <FaTicketAlt className='icon' />
+                <h3>Todo Web Application</h3>
+              </div>
+
+              <div className='ticket__details__info__owner'>
+                <h3><TbUser className='icon' /> Owner / </h3>
+                <span>Youssef Nassrallah</span>
+              </div>
+
+              <div className='flex'>
+                <div className='ticket__details__info__status'>
+                  <h3><TbStatusChange className='icon' /> Ticket Status / </h3>
+                  <span>proposed</span>
+                </div>
+
+                <div className='ticket__details__info__type'>
+                  <h3><TbSticker className='icon' /> Type / </h3>
+                  <span>Feature</span>
+                </div>
+              </div>
+
+              <div className='ticket__details__info__description'>
+                <h3><MdDescription className='icon' /> Description</h3>
+
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+              </div>
+
+              <div className='close-icon'>
+                <MdClose />
+              </div>
+            </div>
+          </div>}
+        </div>
 
         {form && <div className='project__form'>
           <form className='form'>
