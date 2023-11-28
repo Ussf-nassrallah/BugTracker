@@ -11,10 +11,10 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
 app.register_blueprint(app_views)
-# CREATE USER 'root'@'localhost' IDENTIFIED BY 'Lacrim2017';
-# GRANT ALL PRIVILEGES ON *.* TO 'root'@'localhost' WITH GRANT OPTION;
+# CREATE USER 'ussef'@'localhost' IDENTIFIED BY 'Lacrim2017';
+# GRANT ALL PRIVILEGES ON *.* TO 'ussef'@'localhost' WITH GRANT OPTION;
 # FLUSH PRIVILEGES;
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:43211234@localhost/orm_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://ussef:Lacrim2017@localhost/bt_db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)

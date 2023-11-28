@@ -8,6 +8,32 @@
   &__content {
     display: flex;
     flex: 1;
+    position: relative;
+
+    .create__first__project {
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+
+      color: #222;
+      font-size: .9rem;
+      font-weight: 600;
+
+      button {
+        margin-top: 1.5rem;
+      }
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
     .project__form {
       position: fixed;
@@ -97,6 +123,30 @@
         font-size: 1.6rem;
         cursor: pointer;
         margin: 1rem;
+      }
+
+      .css-t3ipsp-control {
+        border-color: $primary-clr !important;
+        box-shadow: 0 0 10px rgba($primary-clr, 0.2) !important;
+      }
+
+      .css-13cymwt-control {
+        border: 1px solid #8692A6 !important;
+      }
+
+      .css-b62m3t-container {
+        span {
+          margin-bottom: 0 !important;
+        }
+        div {
+          margin-bottom: 0 !important;
+        }
+      }
+
+      .css-1nmdiq5-menu {
+        font-size: 0.8rem;
+        // height: 150px;
+        // overflow-y: auto;
       }
     }
   }

@@ -27,8 +27,7 @@ const Dashboard = () => {
   const [projectRepository, setProjectRepository] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
-  const [Users, setUsers] = useState(null);
-  // const [projectOwner, setProjectOwner] = useState(null);
+  const [users, setUsers] = useState(null);
 
   async function fetchData() {
     const token = localStorage.getItem("token");
@@ -39,11 +38,10 @@ const Dashboard = () => {
         .then((data) => {
           setProjects(data.data);
         })
-        .catch((error) => {});
+        .catch((error) => {
+          console.log(error);
+        });
       setUser(myDecodedToken);
-      // setProjectOwner(user.id);
-      // console.log('token', token);
-      // console.log('DecodedToken', myDecodedToken);
     } else {
       console.log("Token not found. User may need to log in.");
     }
@@ -52,8 +50,6 @@ const Dashboard = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  // console.log(user);
 
   const handleProjects = async (e) => {
     e.preventDefault();
@@ -70,7 +66,6 @@ const Dashboard = () => {
     await axios
       .post("http://127.0.0.1:5000/api/v1/projects", request)
       .then((data) => {
-        // console.log(data);
         setIsSuccess(true);
         setSuccessMessage(data.data.message);
         setInterval(() => {
@@ -124,7 +119,10 @@ const Dashboard = () => {
               projectsList={projectsList}
             />
           </>
-        ) : null}
+        ) : <div className="create__first__project">
+          <p>Begin your project management journey and turn your ideas into accomplishments with your first project.</p>
+          <button className="btn-primary" onClick={handleModal}>Create project</button>
+        </div>}
 
         {form && (
           <div className="project__form">
@@ -168,9 +166,9 @@ const Dashboard = () => {
                 <label for="collaborators" className="form__label">
                   Project Collaborators<span>*</span>
                 </label>
-                {Users && (
+                {users && (
                   <Select
-                    options={Users}
+                    options={users}
                     isMulti
                     onChange={(e) => {
                       const members = e.map((member) => member.value);

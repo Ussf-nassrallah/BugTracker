@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { decodeToken } from "react-jwt";
 import { Link } from 'react-router-dom'
 
 import { FaRegFolder, FaTasks } from "react-icons/fa";
@@ -10,6 +11,18 @@ import Avatar from '../../../assets/avatar.jpg'
 import './Sidebar.scss'
 
 const Sidebar = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const myDecodedToken = decodeToken(token);
+      setUser(myDecodedToken);
+    } else {
+      console.log("Token not found. User may need to log in.");
+    }
+  }, []);
+
   return (
     <div className='sidebar'>
       <div className='logo'>
@@ -30,8 +43,8 @@ const Sidebar = () => {
             <img src={Avatar} alt='avatar' />
           </div>
           <div className='profile__info__nr'>
-            <h4>Youssef Nasrallah</h4>
-            <p>Full-stack Web developer</p>
+            <h4>{user !== null ? user.username : ''}</h4>
+            <p>{user !== null ? user.role : ''}</p>
           </div>
         </div>
         <div className='logout'>
