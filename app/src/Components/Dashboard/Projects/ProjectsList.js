@@ -7,6 +7,7 @@ const ProjectsList = ({ handleModal, projects, activeProject, setActiveProject, 
   const [isActive, setActive] = useState(0);
 
   const handleToggleActive = (index) => {
+    // console.log(index);
     setActive(index === isActive ? 0 : index);
     setActiveProject(index);
   }

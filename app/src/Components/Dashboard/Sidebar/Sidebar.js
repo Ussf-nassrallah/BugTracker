@@ -10,7 +10,7 @@ import Avatar from '../../../assets/avatar.jpg'
 
 import './Sidebar.scss'
 
-const Sidebar = () => {
+const Sidebar = ({ projects }) => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -33,7 +33,12 @@ const Sidebar = () => {
 
       <ul className='sidebar__links'>
         <li className='active'><FaRegFolder className='icon' /> Projects</li>
-        <li><FaTasks className='icon' /> Tasks</li>
+        <li className='sidebar__links__tasks'>
+          <div><FaTasks className='icon' /> Tasks</div>
+          <ul>
+            {projects.map((project, idx) => <li key={idx}>{project.name}</li>)}
+          </ul>
+        </li>
         <li><MdSettings className='icon' /> Settings</li>
       </ul>
 

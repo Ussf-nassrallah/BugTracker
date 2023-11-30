@@ -5,6 +5,7 @@ import './Project.scss';
 
 
 const Project = ({ project, handleToggleActive, idx, isActive }) => {
+  // console.log(idx);
   return (
     <div className={idx === isActive ? 'project active' : 'project'} onClick={() => handleToggleActive(idx)}>
       <h2 className='project__name'>{project.name}</h2>

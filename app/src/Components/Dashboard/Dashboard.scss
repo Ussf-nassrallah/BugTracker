@@ -73,6 +73,19 @@
           text-transform: capitalize;
         }
 
+        .errorMessage {
+          color: red;
+          background-color: rgba(red, 0.1);
+          font-size: 0.8rem;
+          margin-top: 0.5rem;
+          text-align: center;
+          font-size: 0.9rem;
+          padding: 0.7rem;
+          border: 1px red solid;
+          border-radius: 5px;
+          text-transform: capitalize;
+        }
+
         &__input {
           width: 100% !important;
         }

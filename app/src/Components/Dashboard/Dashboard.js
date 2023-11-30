@@ -96,9 +96,12 @@ const Dashboard = () => {
       });
   };
 
+  // console.log(projects[activeProject]);
+
+
   return (
     <div className="db">
-      <Sidebar />
+      <Sidebar projects={projects} />
 
       <div className="db__content">
         {projects.length !== 0 ? (
@@ -117,6 +120,7 @@ const Dashboard = () => {
               project={projects[activeProject]}
               setProjectsList={setProjectsList}
               projectsList={projectsList}
+              activeProject={activeProject}
             />
           </>
         ) : <div className="create__first__project">

@@ -35,6 +35,20 @@ background: linear-gradient(90deg, rgba(19,32,67,1) 0%, rgba(31,65,114,1) 50%);
         background-color: lighten($primary-clr, 5%);
       }
     }
+
+    &__tasks {
+      flex-direction: column;
+      align-items: start !important;
+
+      div {
+        display: flex;
+      }
+
+      li {
+        padding: 0;
+        line-height: 1.6;
+      }
+    }
   }
 
   .profile {

@@ -15,20 +15,22 @@ def create_ticket():
     created_by = request.json.get("created_by")
     parent_id = request.json.get("parent_id")
     ticket_type = request.json.get("ticket_type")
-    if not title or not description or not created_by or not parent_id:
+    status = request.json.get("status")
+    if not title or not description or not status or not created_by or not parent_id:
         return jsonify({"message": "Missing data", "status": 400}), 400
     new_ticket = Ticket(
         title=title,
         description=description,
         created_by=created_by,
         parent_id=parent_id,
+        status=status,
         ticket_type=ticket_type,
         created_at=datetime.utcnow(),
         updated_at=datetime.utcnow(),
     )
     storage.new(new_ticket)
     storage.save()
-    return jsonify(new_ticket.as_dict()), 201
+    return jsonify({"message": "ticket created successfully", "status": 201, "ticket": new_ticket.as_dict()}), 201
 
 
 @app_views.route("/tickets", methods=["GET"])
