@@ -1,0 +1,103 @@
+@import '../../styles/helper/helper';
+
+.sidebar {
+  background: $primary-clr;
+  height: 100vh;
+  width: 260px;
+  padding: 1rem;
+  position: relative;
+
+  &__links {
+    list-style: none;
+    margin-top: 2rem;
+
+    &__ele {
+      text-decoration: none;
+
+      color: #fff;
+      list-style: none;
+      padding: 0.7rem 1rem;
+      border-radius: 5px;
+      font-size: 0.9rem;
+
+      display: flex;
+      align-items: center;
+      opacity: 0.6;
+      border-radius: 3rem;
+      transition: all 300ms ease;
+      margin-bottom: 0.5rem;
+      cursor: pointer;
+
+      .icon {
+        display: flex;
+        font-size: 1.2rem;
+        margin-right: 0.4rem;
+      }
+
+      .icon.folder {
+        font-size: 1.1rem;
+      }
+
+      &.active, &:hover {
+        opacity: 1;
+        background-color: $secondary-clr;
+      }
+    }
+  }
+
+  .profile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    width: calc(100% - 1rem);
+
+    position: absolute;
+    bottom: 1rem;
+
+    &__img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: lighten($primary-clr, 5%);
+      margin-right: 0.5rem;
+
+      img {
+        width: 100%;
+        display: block;
+        border-radius: 50%;
+      }
+    }
+
+    &__info {
+      display: flex;
+      align-items: center;
+
+      h4 {
+        font-size: 0.9rem;
+      }
+    
+      p {
+        font-size: 0.74rem;
+      }
+    }
+
+    .logout {
+      background-color: lighten($primary-clr, 5%);
+      width: 30px;
+      height: 30px;
+      border-radius: 5px;
+      margin-right: 1rem;
+      margin-left: 0.5rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .icon {
+        display: flex;
+        font-size: 1.3rem;
+      }
+    }
+  }
+}
