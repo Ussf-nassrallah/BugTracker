@@ -1,0 +1,54 @@
+@import '../../styles/helper/helper';
+
+.projects {
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // padding: 0 2rem;
+
+    h3 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    div {
+      display: flex;
+      align-items: center;
+    }
+
+    .btn {
+      margin-left: 1rem;
+    }
+  }
+
+  .all__projects {
+    padding: 0 2rem;
+
+    .my__projects {
+      margin-bottom: 2rem;
+    }
+
+    .message {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      margin-top: 3rem;
+      width: 100%;
+
+      p {
+        background-color: #fff;
+        border: 1px solid #D9D9D9;
+        border-radius: 5px;
+        padding: 2rem;
+        color: #667085;
+        line-height: 1.6;
+        max-width: 800px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+}
