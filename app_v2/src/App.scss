@@ -1,3 +1,28 @@
+@import './styles/helper/helper';
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
 .container {
   display: flex;
+}
+
+.text {
+  &__primary {
+    color: $primary-clr;
+  }
+}
+
+.bg__light {
+  background-color: #F4F4F4;
+}
+
+.db__content {
+  flex: 1;
+  height: 100vh;
 }
