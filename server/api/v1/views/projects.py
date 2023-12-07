@@ -5,6 +5,7 @@ from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
 from models.project import Project
+from models.member import Member
 
 
 @app_views.route("/projects", methods=["POST"])
@@ -13,6 +14,8 @@ def create_project():
     name = request.json.get("name")
     description = request.json.get("description")
     created_by = request.json.get("created_by")
+    members = request.json.get("members")
+    link_repo = request.json.get("link_repo")
     if not name or not description or not created_by:
         return jsonify({"message": "Missing data", "status": 400}), 400
     new_project = Project(
@@ -21,10 +24,25 @@ def create_project():
         created_by=created_by,
         created_at=datetime.utcnow(),
         updated_at=datetime.utcnow(),
+        link_repo=link_repo,
     )
     storage.new(new_project)
     storage.save()
-    return jsonify(new_project.as_dict()), 201
+    if members is not None:
+        for member in members:
+            new_member = Member(project_id=new_project.id, user_id=member)
+            storage.new(new_member)
+            storage.save()
+    return (
+        jsonify(
+            {
+                "message": "project created successfully",
+                "status": 201,
+                "project": new_project.as_dict(),
+            }
+        ),
+        201,
+    )
 
 
 @app_views.route("/projects", methods=["GET"])

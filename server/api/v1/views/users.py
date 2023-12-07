@@ -5,6 +5,7 @@ from api.v1.views import app_views
 from flask import jsonify, abort, request
 from models import storage
 from models.user import User
+from models.project import Project
 from services.auth.auth_guard import auth_guard
 from werkzeug.security import generate_password_hash
 
@@ -56,6 +57,9 @@ def get_user_projects(user_id):
     if user is None:
         abort(404)
     projects = user.get_projects()
+    for member in user.members:
+        if member.projects is not None:
+            projects.append(member.projects.as_dict())
     return jsonify(projects), 200
 
 

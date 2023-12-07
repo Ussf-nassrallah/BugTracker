@@ -8,6 +8,32 @@
   &__content {
     display: flex;
     flex: 1;
+    position: relative;
+
+    .create__first__project {
+      background-color: #f4f4f4;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+
+      color: #222;
+      font-size: .9rem;
+      font-weight: 600;
+
+      button {
+        margin-top: 1.5rem;
+      }
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
 
     .project__form {
       position: fixed;
@@ -32,6 +58,36 @@
       .form {
         h2 {
           margin-bottom: 1rem !important;
+        }
+
+        .successMessage {
+          color: green;
+          background-color: rgba(green, 0.1);
+          font-size: 0.8rem;
+          margin-top: 0.5rem;
+          text-align: center;
+          font-size: 0.9rem;
+          padding: 0.7rem;
+          border: 1px green solid;
+          border-radius: 5px;
+          text-transform: capitalize;
+        }
+
+        .errorMessage {
+          color: red;
+          background-color: rgba(red, 0.1);
+          font-size: 0.8rem;
+          margin-top: 0.5rem;
+          text-align: center;
+          font-size: 0.9rem;
+          padding: 0.7rem;
+          border: 1px red solid;
+          border-radius: 5px;
+          text-transform: capitalize;
+        }
+
+        &__input {
+          width: 100% !important;
         }
 
         position: relative;
@@ -69,6 +125,9 @@
           height: 120px;
         }
       }
+      #react-select-3-input {
+        margin-bottom: 0rem !important;
+      }
 
       .close-icon {
         position: absolute;
@@ -77,6 +136,30 @@
         font-size: 1.6rem;
         cursor: pointer;
         margin: 1rem;
+      }
+
+      .css-t3ipsp-control {
+        border-color: $primary-clr !important;
+        box-shadow: 0 0 10px rgba($primary-clr, 0.2) !important;
+      }
+
+      .css-13cymwt-control {
+        border: 1px solid #8692A6 !important;
+      }
+
+      .css-b62m3t-container {
+        span {
+          margin-bottom: 0 !important;
+        }
+        div {
+          margin-bottom: 0 !important;
+        }
+      }
+
+      .css-1nmdiq5-menu {
+        font-size: 0.8rem;
+        // height: 150px;
+        // overflow-y: auto;
       }
     }
   }

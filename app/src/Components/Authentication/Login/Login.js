@@ -27,7 +27,7 @@ const Login = () => {
       .post("http://localhost:5000/api/v1/auth", request)
       .then((data) => {
         // console.log(data.data.data)
-        localStorage.setItem("token", data.data);
+        localStorage.setItem("token", data.data.data);
         navigate("/dashboard");
       })
       .catch((error) => {

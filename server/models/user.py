@@ -24,12 +24,26 @@ class User(db.Model):
     role = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow())
     updated_at = db.Column(db.DateTime, default=datetime.utcnow())
-    projects = db.relationship("Project", backref="created_by_user", cascade="all, delete-orphan")
-    tickets = db.relationship("Ticket", backref="created_by_user", cascade="all, delete-orphan")
+    projects = db.relationship(
+        "Project", backref="created_by_user", cascade="all, delete-orphan"
+    )
+    tickets = db.relationship(
+        "Ticket", backref="created_by_user", cascade="all, delete-orphan"
+    )
+    members = db.relationship(
+        "Member", backref="user_ids", cascade="all, delete-orphan"
+    )
 
     def as_dict(self):
         """returns a dictionary containing all keys/values of __dict__"""
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns if c.name != "password"}
+
+    def as_dict_to_resp(self):
+        """returns a dictionary containing id, username for response"""
+        return {
+            "id": self.id,
+            "username": self.username,
+        }
 
     def get_projects(self):
         """returns a list of projects"""

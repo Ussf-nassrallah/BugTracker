@@ -1,11 +1,15 @@
 @import '../../../styles/helper/helper';
 
 .sidebar {
-  background-color: $primary-clr;
+  // background-color: $primary-clr;
+  background: rgb(19,32,67);
+background: linear-gradient(90deg, rgba(19,32,67,1) 0%, rgba(31,65,114,1) 50%);
   height: 100vh;
-  min-width: 300px;
+  min-width: 240px;
   padding: 1rem;
   position: relative;
+  // overflow: hidden;
+
 
   &__links {
     margin-top: 2rem;
@@ -14,7 +18,7 @@
       list-style: none;
       padding: 0.7rem;
       border-radius: 5px;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
 
       display: flex;
       align-items: center;
@@ -22,13 +26,27 @@
 
       .icon {
         display: flex;
-        font-size: 1.2rem;
-        margin-right: 0.6rem;
+        font-size: 1rem;
+        margin-right: 0.4rem;
       }
 
       &.active {
         opacity: 1;
         background-color: lighten($primary-clr, 5%);
+      }
+    }
+
+    &__tasks {
+      flex-direction: column;
+      align-items: start !important;
+
+      div {
+        display: flex;
+      }
+
+      li {
+        padding: 0;
+        line-height: 1.6;
       }
     }
   }
@@ -44,8 +62,8 @@
     bottom: 1rem;
 
     &__img {
-      width: 50px;
-      height: 50px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       background-color: lighten($primary-clr, 5%);
       margin-right: 0.5rem;
@@ -60,16 +78,20 @@
     &__info {
       display: flex;
       align-items: center;
+
+      h4 {
+        font-size: 0.8rem;
+      }
     
       p {
-        font-size: 0.8rem;
+        font-size: 0.6rem;
       }
     }
 
     .logout {
       background-color: lighten($primary-clr, 5%);
-      width: 40px;
-      height: 40px;
+      width: 30px;
+      height: 30px;
       border-radius: 5px;
       margin-right: 1rem;
       margin-left: 0.5rem;
