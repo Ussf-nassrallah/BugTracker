@@ -1,0 +1,97 @@
+@import '../../styles/helper/helper';
+
+.project__detail {
+  .projects__header {
+    padding: 3rem 2rem 1rem 2rem;
+    h3 {
+      font-size: 2rem;
+    }
+  }
+
+  .project {
+    padding: 0 2rem;
+    margin-bottom: 2rem;
+
+    h3 {
+      font-size: 2rem;
+    }
+
+    p {
+      color: #667085;
+      line-height: 1.6;
+      max-width: 760px;
+      margin-top: 1rem;
+    }
+
+    .tag {
+      background-color: $secondary-clr;
+      color: #fff;
+      border-radius: 2rem;
+      font-size: 0.9rem;
+      padding: 0.2rem 1rem;
+      font-weight: 400;
+      display: inline-block;
+      margin-left: 0.5rem;
+    }
+
+    &__owner {
+      display: flex;
+      align-items: center;
+
+      p {
+        margin-top: 0;
+      }
+    }
+
+    &__repo {
+      p {
+        margin-top: 0;
+      }
+      div {
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+      }
+
+      .tag {
+        background-color: rgba(#1E3FF1, 0.1);
+        color: #1E3FF1;
+
+        a {
+          color: #1E3FF1;
+        }
+
+        &:hover {
+          cursor: pointer;
+          a {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    &__members {
+      &__header {
+        display: flex;
+        align-items: center;
+
+        span {
+          margin-top: 0.5rem;
+          margin-left: 1rem;
+        }
+      }
+    }
+
+    &__tickets {
+      &__header {
+        display: flex;
+        align-items: center;
+
+        span {
+          margin-top: 0.5rem;
+          margin-left: 1rem;
+        }
+      }
+    }
+  }
+}

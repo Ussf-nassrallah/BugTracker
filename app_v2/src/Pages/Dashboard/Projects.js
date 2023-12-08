@@ -1,15 +1,31 @@
 import React, { useState } from 'react';
 // Icons
-import { MdAdd, MdArrowDownward } from "react-icons/md";
+import { MdAdd } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
 // Components
 import Navbar from '../../Layout/Navbar/Navbar'
+import ProjectsTable from '../../Components/Tables/ProjectsTable';
+import EmptyProjectsMssg from '../../Components/AlertMessages/EmptyProjectsMssg';
+import ZeroCollabMssg from '../../Components/AlertMessages/ZeroCollabMssg';
 // Styles
 import './Projects.scss'
 
 const Projects = () => {
-  const [zeroProjectsMssg, setZeroProjectsMssg] = useState(true);
-  const [zeroCollabMssg, setZeroCollabMssg] = useState(true);
+  const [projects, setProjects] = useState([
+    {
+      id: 0,
+      title: 'Fitness Tracker',
+      owner: 'Michael Brown',
+      description: 'Track your fitness journey with this app. Log your workouts, monitor your progress, and set fitness goals. Includes charts and graphs to visualize your achievements.'
+    },
+    {
+      id: 1,
+      title: 'E-commerce Platform',
+      owner: 'John Doe',
+      description: 'An online shopping platform where users can browse products, add items to their cart, and complete the checkout process. Includes user accounts, product reviews, and order history.'
+    },
+  ]);
+
   return (
     <div className='db__content bg__light projects'>
       <Navbar />
@@ -35,9 +51,7 @@ const Projects = () => {
             </div>
           </header>
 
-          {zeroProjectsMssg && <div className='message'>
-            <p>Looks like you're starting with a clean slate! You currently have 0 projects. Ready to kick off something new? Click on <span className='text__primary'>"Create a new Project"</span> to get started and organize your tasks efficiently.</p>
-          </div>}
+          <ProjectsTable projects={projects} />
         </div>
 
         <div className='my__collab'>
@@ -47,9 +61,7 @@ const Projects = () => {
             </h3>
           </header>
 
-          {zeroCollabMssg && <div className='message'>
-            <p>You currently have no collaborations. If you have projects to work on with others, invite them to join and start collaborating. Teamwork makes the dream work!</p>
-          </div>}
+          <ZeroCollabMssg />
         </div>
       </div>
     </div>
