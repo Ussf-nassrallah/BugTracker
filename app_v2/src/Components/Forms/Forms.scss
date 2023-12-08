@@ -1,0 +1,192 @@
+@import '../../styles/helper/helper';
+
+.form {
+  div {
+    margin-bottom: 1rem;
+  }
+  
+  &__input {
+    // all: unset;
+    padding: 0.7rem 1rem;
+    border-radius: 3px;
+    border: 1px solid #D9D9D9;
+    width: calc(100% - 2rem);
+    font-size: 0.9rem;
+    outline: none;
+
+    &:focus {
+      border-color: $primary-clr;
+      box-shadow: 0 0 10px rgba($primary-clr, 0.1);
+    }
+  }
+
+  &__label {
+    display: block;
+    color: #667085;
+    padding-bottom: 0.5rem;
+    font-size: 0.9rem;
+    // font-weight: 600;
+
+    span {
+      color: $primary-clr;
+    }
+  }
+}
+
+.project__form {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  // z-index: 100;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#000, 0.7);
+    z-index: -1;
+  }
+
+  .form {
+    h2 {
+      // margin-bottom: 1rem !important;
+      margin: 0;
+      padding: 0;
+      color: $primary-clr;
+      font-size: 24px;
+      margin-bottom: 1rem;
+    }
+
+    .submit-btn {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .successMessage {
+      color: #41AC4C;
+      background-color: rgba(#41AC4C, 0.1);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 0.7rem;
+      border: 1px green solid;
+      border-radius: 5px;
+      text-transform: capitalize;
+    }
+
+    .errorMessage {
+      color: #C52B2B;
+      background-color: rgba(#C52B2B, 0.1);
+      font-size: 0.8rem;
+      margin-top: 0.5rem;
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 0.7rem;
+      border: 1px red solid;
+      border-radius: 3px;
+      text-transform: capitalize;
+    }
+
+    &__input {
+      width: 100% !important;
+    }
+
+    position: relative;
+
+    background-color: #f4f4f4;
+    z-index: 100;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    min-width: 620px;
+    height: 700px;
+    overflow-y: auto;
+
+    /* Add custom styles for the scrollbar */
+    &::-webkit-scrollbar {
+      width: 8px; /* Adjust the width as needed */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(#fff, 0.3); /* Color of the thumb */
+      border-radius: 6px; /* Round the corners of the thumb */
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: $primary-clr; /* Color of the track */
+      border-radius: 3px;
+    }
+
+    border-radius: 5px;
+    padding: 2rem;
+
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+
+      li {
+        color: #1640D6;
+        font-weight: bold;
+        display: inline-block;
+        padding: 0.4rem 1rem;
+        border-radius: 5px;
+        background-color: rgba(#1640D6, 0.1);
+        font-size: 0.9rem;
+      }
+    }
+    textarea {
+      height: 200px;
+      font-size: 0.9rem;
+    }
+  }
+  #react-select-3-input {
+    margin-bottom: 0rem !important;
+  }
+
+  .close-icon {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 1.6rem;
+    cursor: pointer;
+    margin: 1rem;
+  }
+
+  .css-t3ipsp-control {
+    border-color: $primary-clr !important;
+    box-shadow: 0 0 10px rgba($primary-clr, 0.2) !important;
+  }
+
+  .css-13cymwt-control {
+    border: 1px solid #D9D9D9;
+    font-size: 0.9rem;
+    padding: 0.2rem 0 !important;
+
+  }
+
+  .css-b62m3t-container {
+    span {
+      margin-bottom: 0 !important;
+    }
+    div {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .css-1nmdiq5-menu {
+    font-size: 0.8rem;
+    // height: 150px;
+    // overflow-y: auto;
+  }
+}

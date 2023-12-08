@@ -7,6 +7,7 @@ import Navbar from '../../Layout/Navbar/Navbar'
 import ProjectsTable from '../../Components/Tables/ProjectsTable';
 import EmptyProjectsMssg from '../../Components/AlertMessages/EmptyProjectsMssg';
 import ZeroCollabMssg from '../../Components/AlertMessages/ZeroCollabMssg';
+import CreateProjectForm from '../../Components/Forms/CreateProjectForm';
 // Styles
 import './Projects.scss'
 
@@ -25,6 +26,8 @@ const Projects = () => {
       description: 'An online shopping platform where users can browse products, add items to their cart, and complete the checkout process. Includes user accounts, product reviews, and order history.'
     },
   ]);
+
+  const [form, setForm] = useState(false);
 
   return (
     <div className='db__content bg__light projects'>
@@ -45,7 +48,7 @@ const Projects = () => {
                 <input className='search__input' placeholder='Search...' />
               </div>
 
-              <button className='btn btn__primary'>
+              <button className='btn btn__primary' onClick={() => setForm(true)}>
                 <MdAdd className='icon' />Create a new project
               </button>
             </div>
@@ -64,6 +67,8 @@ const Projects = () => {
           <ZeroCollabMssg />
         </div>
       </div>
+
+      {form && <CreateProjectForm setForm={setForm} />}
     </div>
   )
 }
