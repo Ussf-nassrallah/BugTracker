@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select'
 // Icons
-import { MdClose, MdAdd, MdDelete, MdEdit } from "react-icons/md";
+import { MdClose, MdAdd, MdOutlineCancel, MdEdit } from "react-icons/md";
 // Styles
 import './Forms.scss';
 
@@ -108,8 +108,11 @@ const CreateProjectForm = ({setUpdateProjectForm, updateProjectForm}) => {
 
         {/* submit */}
         <div className='submit-btn'>
+          <button className='btn btn__light' onClick={() => setUpdateProjectForm(false)}>
+            <MdOutlineCancel className='icon' />Cancel
+          </button>
           <button className='btn btn__secondary'>
-            <MdEdit className='icon' />Update Project Info
+            <MdEdit className='icon' />Update
           </button>
         </div>
         <div className="close-icon" onClick={() => setUpdateProjectForm(false)}>

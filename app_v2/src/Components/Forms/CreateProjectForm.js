@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Select from 'react-select'
 // Icons
-import { MdClose } from "react-icons/md";
+import { MdClose, MdOutlineCancel } from "react-icons/md";
 import { MdAdd } from "react-icons/md";
 // Styles
 import './Forms.scss';
@@ -93,6 +93,9 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
 
         {/* submit */}
         <div className='submit-btn'>
+          <button className='btn btn__light' onClick={() => setCreateProjectForm(false)}>
+            <MdOutlineCancel className='icon' />Cancel
+          </button>
           <button className='btn btn__primary'>
             <MdAdd className='icon' />Create a new project
           </button>

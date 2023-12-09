@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
 // Icons
 import { FaFolder, FaTicketAlt } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
@@ -11,6 +12,9 @@ import Avatar from '../../assets/avatar.jpg'
 import './Sidebar.scss'
 
 const Sidebar = () => {
+  const location = useLocation();
+  const pathname = location.pathname;
+
   const links = [
     {
       id: 0,
@@ -49,6 +53,10 @@ const Sidebar = () => {
   useEffect(() => {
     localStorage.setItem('linkIndex', activeLink);
   }, [activeLink]);
+
+  if (['/', '/register', '/login'].includes(pathname)) {
+    return null; // Do not render the sidebar for these routes
+  }
 
   return (
     <div className='sidebar'>
