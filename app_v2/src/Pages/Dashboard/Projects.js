@@ -8,6 +8,7 @@ import ProjectsTable from '../../Components/Tables/ProjectsTable';
 import EmptyProjectsMssg from '../../Components/AlertMessages/EmptyProjectsMssg';
 import ZeroCollabMssg from '../../Components/AlertMessages/ZeroCollabMssg';
 import CreateProjectForm from '../../Components/Forms/CreateProjectForm';
+import UpdateProjectForm from '../../Components/Forms/UpdateProjectForm';
 // Styles
 import './Projects.scss'
 
@@ -27,7 +28,8 @@ const Projects = () => {
     },
   ]);
 
-  const [form, setForm] = useState(false);
+  const [createProjectForm, setCreateProjectForm] = useState(false);
+  const [updateProjectForm, setUpdateProjectForm] = useState(false);
 
   return (
     <div className='db__content bg__light projects'>
@@ -48,13 +50,13 @@ const Projects = () => {
                 <input className='search__input' placeholder='Search...' />
               </div>
 
-              <button className='btn btn__primary' onClick={() => setForm(true)}>
+              <button className='btn btn__primary' onClick={() => setCreateProjectForm(true)}>
                 <MdAdd className='icon' />Create a new project
               </button>
             </div>
           </header>
 
-          <ProjectsTable projects={projects} />
+          <ProjectsTable projects={projects} setUpdateProjectForm={setUpdateProjectForm} />
         </div>
 
         <div className='my__collab'>
@@ -68,7 +70,11 @@ const Projects = () => {
         </div>
       </div>
 
-      {form && <CreateProjectForm setForm={setForm} />}
+      {createProjectForm && <CreateProjectForm setCreateProjectForm={setCreateProjectForm} />}
+      {updateProjectForm && <UpdateProjectForm
+        updateProjectForm={updateProjectForm}
+        setUpdateProjectForm={setUpdateProjectForm}
+      />}
     </div>
   )
 }

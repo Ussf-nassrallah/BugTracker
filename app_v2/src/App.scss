@@ -97,6 +97,15 @@ h2 {
       background-color: #a82323;
     }
   }
+
+  &__light {
+    background-color: rgba($secondary-clr, 0.15);
+    color: $secondary-clr;
+
+    &:hover {
+      background-color: rgba($secondary-clr, 0.3);
+    }
+  }
 }
 
 .search {

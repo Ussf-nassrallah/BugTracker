@@ -4,12 +4,17 @@ import { useParams } from 'react-router-dom';
 import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 // Components
 import Navbar from '../../Layout/Navbar/Navbar';
+import UpdateProjectForm from '../../Components/Forms/UpdateProjectForm'
+import DeleteAlertMssg from '../../Components/AlertMessages/DeleteAlertMssg';
 // Styles
 import './ProjectDetails.scss'
 import MembersTable from '../../Components/Tables/MembersTable';
 import ProjectTicketsTable from '../../Components/Tables/ProjectTicketsTable';
 
 const ProjectDetails = () => {
+  const [updateProjectForm, setUpdateProjectForm] = useState(false);
+  const [deleteAlertMessage, setDeleteAlertMessage] = useState(false);
+
   // Access the id parameter using useParams
   let { id } = useParams();
 
@@ -97,11 +102,11 @@ const ProjectDetails = () => {
             <MdAdd className='icon' />Create a new ticket
           </button>
 
-          <button className='btn btn__secondary'>
+          <button className='btn btn__secondary' onClick={() => setUpdateProjectForm(true)}>
             <MdEdit className='icon' />Update project info
           </button>
 
-          <button className='btn btn__danger'>
+          <button className='btn btn__danger' onClick={() => setDeleteAlertMessage(true)}>
             <MdDelete className='icon' />Delete
           </button>
         </div>
@@ -153,6 +158,13 @@ const ProjectDetails = () => {
         </div>
         <ProjectTicketsTable tickets={ticketTasks} />
       </div>
+
+      {updateProjectForm && <UpdateProjectForm
+        updateProjectForm={updateProjectForm}
+        setUpdateProjectForm={setUpdateProjectForm}
+      />}
+
+      {deleteAlertMessage && <DeleteAlertMssg setDeleteAlertMessage={setDeleteAlertMessage} />}
     </div>
   )
 }
