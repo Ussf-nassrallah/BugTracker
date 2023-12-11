@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 // Icons
 import { FaFolder, FaTicketAlt } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
@@ -12,6 +11,7 @@ import Avatar from '../../assets/avatar.jpg'
 import './Sidebar.scss'
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
 
@@ -58,6 +58,13 @@ const Sidebar = () => {
     return null; // Do not render the sidebar for these routes
   }
 
+  const handleLogout = () => {
+    // Remove the token from localStorage
+    localStorage.removeItem('token');
+    // Navigate to login
+    navigate('/login');
+  };
+
   return (
     <div className='sidebar'>
       <div className='logo'>
@@ -87,7 +94,7 @@ const Sidebar = () => {
             <p>Full-stack Web developer</p>
           </div>
         </div>
-        <div className='logout'>
+        <div className='logout' onClick={() => handleLogout()}>
           <MdLogout className='icon' />
         </div>
       </div>

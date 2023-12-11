@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import PrivateRoutes from './Pages/Authentication/PrivateRoutes';
 
 // Components
 import Home from './Pages/Home/Home';
@@ -20,15 +21,21 @@ function App() {
   return (
     <div className='container'>
       <Sidebar />
+
       <Routes>
+        {/* Public Routes */}
         <Route path='/' element={<Home />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/dashboard/projects" element={<Projects />} />
-        <Route path="/dashboard/projects/:id" element={<ProjectDetails />} />
-        <Route path="/dashboard/tickets" element={<Tickets />} />
-        <Route path="/dashboard/settings" element={<Settings />} />
+
+        {/* Private Routes: only for auth users */}
+        <Route element={<PrivateRoutes />}>
+          <Route path="/dashboard" element={<Dashboard />} exact />
+          <Route path="/dashboard/projects" element={<Projects exact />} />
+          <Route path="/dashboard/projects/:id" element={<ProjectDetails />} exact />
+          <Route path="/dashboard/tickets" element={<Tickets />} exact />
+          <Route path="/dashboard/settings" element={<Settings />} exact />
+        </Route>
       </Routes>
     </div>
   );

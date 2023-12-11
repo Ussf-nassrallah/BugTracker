@@ -84,19 +84,28 @@
 
     .logout {
       background-color: lighten($primary-clr, 5%);
-      width: 30px;
-      height: 30px;
-      border-radius: 5px;
+      width: 35px;
+      height: 35px;
+      border-radius: 3px;
       margin-right: 1rem;
       margin-left: 0.5rem;
 
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
+      transition: all 200ms ease;
+
+      &:hover {
+        background-color: #fff;
+        .icon {
+          color: $secondary-clr;
+        }
+      }
 
       .icon {
         display: flex;
-        font-size: 1.3rem;
+        font-size: 1.4rem;
       }
     }
   }

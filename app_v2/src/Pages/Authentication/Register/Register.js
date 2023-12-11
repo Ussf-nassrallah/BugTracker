@@ -60,11 +60,11 @@ const Register = () => {
     await axios
       .post("http://127.0.0.1:5000/api/v1/signup", request)
       .then((data) => {
-        console.log(data.data)
+        // console.log(data.data)
         navigate("/login");
       })
       .catch((error) => {
-        console.log(error.response.data.error);
+        // console.log(error.response.data.error);
         setErrorMessage(error.response.data.error);
       })
       .finally(() => {
@@ -72,7 +72,7 @@ const Register = () => {
       })
   };
 
-  console.log(errorMessage);
+  // console.log(errorMessage);
 
   return (
     <div className='register'>
