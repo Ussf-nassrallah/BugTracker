@@ -50,6 +50,26 @@
         p {
           color: #667085;
         }
+        margin-bottom: 1rem;
+        small {
+          display: inline-block;
+          color: #C52B2B;
+          margin-top: 1rem;
+        }
+      }
+
+      .error {
+        .form__label {
+          color: #C52B2B !important;
+        }
+
+        .form__input {
+          border-color: #C52B2B;
+        }
+
+        &__message {
+          color: #C52B2B;
+        }
       }
 
       &__input {
@@ -64,9 +84,12 @@
         button {
           margin: 1rem 0 1rem 0;
           width: calc(100% - 2rem);
+          padding-top: 0.8rem;
+          padding-bottom: 0.8rem;
           display: flex;
           justify-content: center;
           text-align: center;
+          height: 20px;
         }
 
         a {
