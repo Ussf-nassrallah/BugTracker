@@ -4,7 +4,7 @@ import { MdDelete, MdOutlineCancel } from "react-icons/md";
 const DeleteAlertMssg = ({setDeleteAlertMessage}) => {
   return (
     <div className='alert__mssg'>
-      <div className='alert__mssg__delete'>
+      <div className='alert__mssg__content'>
         <h5>Delete Fitness Tracking App!</h5>
         <p>Are you sure want to delete "Fitness Tracking App" ?</p>
         <div className='buttons'>

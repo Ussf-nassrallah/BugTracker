@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+// Components
+import LogoutAlertMessage from '../../Components/AlertMessages/LogoutAlertMessage';
 // Icons
 import { FaFolder, FaTicketAlt } from "react-icons/fa";
 import { MdDashboard } from "react-icons/md";
@@ -11,6 +13,8 @@ import Avatar from '../../assets/avatar.jpg'
 import './Sidebar.scss'
 
 const Sidebar = () => {
+  const [logoutAlert, setLogoutAlert] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
@@ -61,6 +65,8 @@ const Sidebar = () => {
   const handleLogout = () => {
     // Remove the token from localStorage
     localStorage.removeItem('token');
+    // remove logout alert message
+    setLogoutAlert(false);
     // Navigate to login
     navigate('/login');
   };
@@ -94,10 +100,12 @@ const Sidebar = () => {
             <p>Full-stack Web developer</p>
           </div>
         </div>
-        <div className='logout' onClick={() => handleLogout()}>
+        <div className='logout' onClick={() => setLogoutAlert(true)}>
           <MdLogout className='icon' />
         </div>
       </div>
+
+      {logoutAlert && <LogoutAlertMessage handleLogout={handleLogout} setLogoutAlert={setLogoutAlert} />}
     </div>
   )
 }
