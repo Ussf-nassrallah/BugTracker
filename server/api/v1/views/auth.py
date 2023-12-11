@@ -30,10 +30,14 @@ def auth():
 
 def validate_signup_data(data):
     required_fields = ["email", "password", "username", "role", "age", "phone", "gender"]
+    output = {}
 
     for field in required_fields:
         if field not in data:
-            return False, f"Missing required field: {field}"
+            output[field] = f"Missing required field: {field}"
+    
+    if len(output) != 0:
+        return False, output
 
     # Additional validation logic can be added here based on your requirements
     return True, None

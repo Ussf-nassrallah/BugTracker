@@ -24,7 +24,7 @@
     padding: 2rem;
 
     height: 680px;
-    min-width: 620px;
+    width: 600px;
     overflow-y: auto;
 
     /* Add custom styles for the scrollbar */
@@ -52,6 +52,20 @@
         }
       }
 
+      .error {
+        .form__label {
+          color: #C52B2B !important;
+        }
+
+        .form__input {
+          border-color: #C52B2B;
+        }
+
+        &__message {
+          color: #C52B2B;
+        }
+      }
+
       &__input {
         width: 100% !important;
       }
@@ -71,9 +85,12 @@
         button {
           margin: 1rem 0 1rem 0;
           width: calc(100% - 2rem);
+          padding-top: 0.8rem;
+          padding-bottom: 0.8rem;
           display: flex;
           justify-content: center;
           text-align: center;
+          height: 20px;
         }
 
         a {
