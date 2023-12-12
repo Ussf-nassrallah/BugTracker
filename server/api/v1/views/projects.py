@@ -8,16 +8,40 @@ from models.project import Project
 from models.member import Member
 
 
+def validate_project_data(data):
+    required_fields = ["name", "description", "members", "link_repo", "created_by"]
+    output = {}
+
+    for field in required_fields:
+        if field not in data:
+            output[field] = f"Missing required field: {field}"
+    
+    if len(output) != 0:
+        return False, output
+
+    # Additional validation logic can be added here based on your requirements
+    return True, None
+
+
 @app_views.route("/projects", methods=["POST"])
 def create_project():
     """create project"""
-    name = request.json.get("name")
-    description = request.json.get("description")
-    created_by = request.json.get("created_by")
-    members = request.json.get("members")
-    link_repo = request.json.get("link_repo")
-    if not name or not description or not created_by:
-        return jsonify({"message": "Missing data", "status": 400}), 400
+    request_data = request.json
+
+    # Validate incoming data
+    is_valid, error_message = validate_project_data(request_data)
+    if not is_valid:
+        return jsonify({"error": error_message}), 400
+
+    name = request_data["name"]
+    description = request_data["description"]
+    created_by = request_data["created_by"]
+    members = request_data["members"]
+    link_repo = request_data["link_repo"]
+
+    # if not name or not description or not created_by:
+    #     return jsonify({"message": "Missing data", "status": 400}), 400
+
     new_project = Project(
         name=name,
         description=description,
