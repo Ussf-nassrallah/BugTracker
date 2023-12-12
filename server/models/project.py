@@ -25,7 +25,7 @@ class Project(db.Model):
     tickets = db.relationship(
         "Ticket", backref="parent_ids", cascade="all, delete-orphan"
     )
-    onwer = db.relationship("User", backref="created_by", cascade="all")
+    onwer = db.relationship("User", backref="created_by", cascade="save-update, merge")
 
     def as_dict(self):
         """returns a dictionary containing all keys/values of __dict__"""
@@ -39,6 +39,13 @@ class Project(db.Model):
             "link_repo": self.link_repo,
             "tickets": [ticket.as_dict() for ticket in self.tickets],
             "members": [member.users.as_dict_to_resp() for member in self.members],
+        }
+        
+    def as_dict_to_resp(self):
+        """returns a dictionary containing id and name"""
+        return {
+            "id": self.id,
+            "name": self.name,
         }
 
     def get_tickets(self):

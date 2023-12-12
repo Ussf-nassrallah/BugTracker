@@ -31,7 +31,7 @@ class User(db.Model):
         "Ticket", backref="created_by_user", cascade="all, delete-orphan"
     )
     members = db.relationship(
-        "Member", backref="user_ids", cascade="all, delete-orphan"
+        "Member", backref="user_ids", cascade="all"
     )
 
     def as_dict(self):
