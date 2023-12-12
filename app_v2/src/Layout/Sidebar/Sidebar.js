@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { decodeToken } from "react-jwt";
 // Components
 import LogoutAlertMessage from '../../Components/AlertMessages/LogoutAlertMessage';
@@ -14,13 +14,17 @@ import Avatar from '../../assets/avatar.jpg'
 import './Sidebar.scss'
 
 const Sidebar = () => {
+  const [user, setUser] = useState({});
   const [logoutAlert, setLogoutAlert] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-  const pathname = location.pathname;
 
-  const token = localStorage.getItem("token");
-  const user = decodeToken(token);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token != null) {
+      const userData = decodeToken(token);
+      setUser(userData);
+    }
+  }, []);
 
   const links = [
     {
@@ -60,10 +64,6 @@ const Sidebar = () => {
   useEffect(() => {
     localStorage.setItem('linkIndex', activeLink);
   }, [activeLink]);
-
-  if (['/', '/register', '/login'].includes(pathname)) {
-    return null; // Do not render the sidebar for these routes
-  }
 
   const handleLogout = () => {
     // Remove the token from localStorage
