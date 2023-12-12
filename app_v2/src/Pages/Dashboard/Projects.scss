@@ -31,4 +31,22 @@
       margin-bottom: 2rem;
     }
   }
+
+  &__loading {
+    position: relative;
+    // background-color: #fff;
+    height: 100px;
+    margin-top: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .lds-roller {
+      transform: scale(0.7);
+      div:after {
+        background: $secondary-clr;
+      }
+    }
+  }
 }

@@ -39,6 +39,18 @@ table {
           color: #667085;
         }
 
+        .member-tag {
+          color: #1E3FF1;
+          background-color: rgba(#1E3FF1, 0.07);
+          text-transform: capitalize;
+          border-radius: 1rem;
+          padding: 0.1rem 0.6rem;
+          margin-bottom: 0.5rem;
+          &:not(:first-child) {
+            margin-left: 0.3rem;
+          }
+        }
+
         &.action__btns {
           button {
             all: unset;

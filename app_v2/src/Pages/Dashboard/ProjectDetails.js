@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useParams } from 'react-router-dom';
 // Icons
 import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
@@ -6,35 +7,20 @@ import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 import Navbar from '../../Layout/Navbar/Navbar';
 import UpdateProjectForm from '../../Components/Forms/UpdateProjectForm'
 import DeleteAlertMssg from '../../Components/AlertMessages/DeleteAlertMssg';
+import LoadingRoller from '../../Components/Loading/LoadingRoller';
 // Styles
 import './ProjectDetails.scss'
 import MembersTable from '../../Components/Tables/MembersTable';
 import ProjectTicketsTable from '../../Components/Tables/ProjectTicketsTable';
 
 const ProjectDetails = () => {
+  const [project, setProject] = useState({});
+  const [loading, setLoading] = useState(true);
   const [updateProjectForm, setUpdateProjectForm] = useState(false);
   const [deleteAlertMessage, setDeleteAlertMessage] = useState(false);
-
+  const [members, setMembers] = useState([]);
   // Access the id parameter using useParams
   let { id } = useParams();
-
-  const [members, setMembers] = useState([
-    {
-      id: 0,
-      username: 'Youssef Nassrallah',
-      phone: '0641141524',
-      email: 'youssefnassrallah@gmail.com',
-      role: 'Full-stack Web Developer'
-    },
-    {
-      id: 1,
-      username: 'Redwan Ben Yechou',
-      phone: '0612336514',
-      email: 'redwanriyo@gmail.com',
-      role: 'Software Engineer'
-    }
-  ]);
-
   const ticketTasks = [
     {
       id: 1,
@@ -85,8 +71,52 @@ const ProjectDetails = () => {
       created_at: "2023-12-11T14:20:00Z", // Replace this with the actual creation date
     },
   ];
-  
-  console.log(id);
+
+  const fetchProject = async () => {
+    setLoading(true);
+    await axios.get(`http://127.0.0.1:5000/api/v1/projects/${id}`)
+      .then((data) => {
+        setProject(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  const fetchMembers = async () => {
+    setLoading(true);
+    await axios.get(`http://127.0.0.1:5000/api/v1/projects/${id}/members`)
+      .then((data) => {
+        setMembers(data.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchProject();
+    fetchMembers();
+  }, []);
+
+  const username = project.created_by ? project.created_by.username : null;
+
+  if (loading) {
+    return (
+      <div className='db__content bg__light project__detail'>
+        <Navbar />
+        <div className='project__detail__loading'>
+          <LoadingRoller />
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className='db__content bg__light project__detail'>
@@ -94,7 +124,7 @@ const ProjectDetails = () => {
 
       <header className='projects__header'>
         <h3 className='text__primary'>
-          Fitness Tracker
+          {project.name}
         </h3>
 
         <div>
@@ -114,7 +144,7 @@ const ProjectDetails = () => {
 
       <div className='project project__owner'>
         <p>Project created by : </p>
-        <span className='tag'>Youssef Nassrallah</span>
+        <span className='tag'>{username}</span>
       </div>
 
       <div className='project project__description'>
@@ -122,7 +152,7 @@ const ProjectDetails = () => {
           Description
         </h3>
         <p>
-          Track your fitness journey with this app. Log your workouts, monitor your progress, and set fitness goals. Includes charts and graphs to visualize your achievements.
+          {project.description}
         </p>
       </div>
 
@@ -134,7 +164,7 @@ const ProjectDetails = () => {
         <div>
           <p>github repository link : </p>
           <span className='tag'>
-            <a>https://github.com/Ussf-nassrallah/BugTracker</a>
+            <a href={project.link_repo} target="_blank">{project.link_repo}</a>
           </span>
         </div>
       </div>
@@ -144,7 +174,7 @@ const ProjectDetails = () => {
           <h3 className='text__primary'>
             Members
           </h3>
-          <span className='length-tag'>3 Members</span>
+          <span className='length-tag'>{members.length} Members</span>
         </div>
         <MembersTable members={members} />
       </div>
@@ -164,7 +194,7 @@ const ProjectDetails = () => {
         setUpdateProjectForm={setUpdateProjectForm}
       />}
 
-      {deleteAlertMessage && <DeleteAlertMssg setDeleteAlertMessage={setDeleteAlertMessage} />}
+      {deleteAlertMessage && <DeleteAlertMssg setDeleteAlertMessage={setDeleteAlertMessage} project={project} />}
     </div>
   )
 }

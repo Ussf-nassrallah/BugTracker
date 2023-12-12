@@ -1,6 +1,22 @@
 @import '../../styles/helper/helper';
 
 .project__detail {
+  position: relative;
+
+  &__loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .lds-roller {
+      transform: scale(0.7);
+      div:after {
+        background: $secondary-clr;
+      }
+    }
+  }
+
   .projects__header {
     padding: 3rem 2rem 1rem 2rem;
     h3 {

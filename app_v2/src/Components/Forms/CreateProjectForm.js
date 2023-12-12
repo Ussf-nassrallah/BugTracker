@@ -67,12 +67,10 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
       members: members,
     });
 
-    // console.log(request);
-
     await axios
       .post("http://127.0.0.1:5000/api/v1/projects", request)
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         setSuccessMessage(true);
         setErrorMessage({});
         setInterval(() => {
@@ -80,7 +78,6 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
         }, 7000);
       })
       .catch((error) => {
-        // console.log(error.response.data.error);
         setErrorMessage(error.response.data.error);
       })
       .finally(() => {

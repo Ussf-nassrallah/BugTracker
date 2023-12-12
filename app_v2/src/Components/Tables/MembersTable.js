@@ -6,6 +6,7 @@ import { MdArrowDownward } from "react-icons/md";
 import './Table.scss'
 
 const MembersTable = ({members}) => {
+  console.log(members);
   return (
     <table>
       <thead>

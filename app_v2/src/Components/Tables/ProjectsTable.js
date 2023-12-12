@@ -25,14 +25,14 @@ const ProjectsTable = ({projects, setUpdateProjectForm}) => {
         <tbody>
           {projects.map((project, index) => <tr key={index}>
             <td>
-              <Link to={`/dashboard/projects/${project.id}`}>{project.title}</Link>
+              <Link to={`/dashboard/projects/${project.id}`}>{project.name}</Link>
             </td>
             <td>
               <Link to={`/dashboard/projects/${project.id}`}>
                 {project.description.length > 60 ? `${project.description.slice(0, 60)}...` : project.description}
               </Link>
             </td>
-            <td>Youssef Nasrallah, Redwan Ben Yecho</td>
+            <td>{project.members.map((m, idx) => <span className='member-tag' key={idx}>{m.username}</span>)}</td>
             <td>12/5/2023 3:44</td>
             <td className='action__btns'>
               <button className='action__btns__edit' onClick={() => setUpdateProjectForm(true)}>Edit</button>

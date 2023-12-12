@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { decodeToken } from 'react-jwt';
 // Icons
 import { MdAdd } from "react-icons/md";
 import { FiSearch } from "react-icons/fi";
@@ -9,27 +11,41 @@ import EmptyProjectsMssg from '../../Components/AlertMessages/EmptyProjectsMssg'
 import ZeroCollabMssg from '../../Components/AlertMessages/ZeroCollabMssg';
 import CreateProjectForm from '../../Components/Forms/CreateProjectForm';
 import UpdateProjectForm from '../../Components/Forms/UpdateProjectForm';
+import LoadingRoller from '../../Components/Loading/LoadingRoller';
 // Styles
 import './Projects.scss'
 
 const Projects = () => {
-  const [projects, setProjects] = useState([
-    {
-      id: 0,
-      title: 'Fitness Tracker',
-      owner: 'Michael Brown',
-      description: 'Track your fitness journey with this app. Log your workouts, monitor your progress, and set fitness goals. Includes charts and graphs to visualize your achievements.'
-    },
-    {
-      id: 1,
-      title: 'E-commerce Platform',
-      owner: 'John Doe',
-      description: 'An online shopping platform where users can browse products, add items to their cart, and complete the checkout process. Includes user accounts, product reviews, and order history.'
-    },
-  ]);
-
+  const [projects, setProjects] = useState([]);
+  const [emptyProjectsList, setEmptyProjectsList] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [createProjectForm, setCreateProjectForm] = useState(false);
   const [updateProjectForm, setUpdateProjectForm] = useState(false);
+
+  const token = localStorage.getItem("token");
+  const user = decodeToken(token);
+
+  const fetchProjects = async () => {
+    setLoading(true);
+
+    await axios.get(`http://127.0.0.1:5000/api/v1/users/${user.id}/projects`)
+      .then((data) => {
+        setProjects(data.data);
+        if (projects.length === 0) {
+          setEmptyProjectsList(false);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }
+
+  useEffect(() => {
+    fetchProjects();
+  }, [])
 
   return (
     <div className='db__content bg__light projects'>
@@ -56,7 +72,10 @@ const Projects = () => {
             </div>
           </header>
 
-          <ProjectsTable projects={projects} setUpdateProjectForm={setUpdateProjectForm} />
+          {loading && <div className='projects__loading'>
+            <LoadingRoller />
+          </div>}
+          {emptyProjectsList ? <EmptyProjectsMssg /> : <ProjectsTable projects={projects} setUpdateProjectForm={setUpdateProjectForm} />}
         </div>
 
         <div className='my__collab'>

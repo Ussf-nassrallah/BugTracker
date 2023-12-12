@@ -45,10 +45,15 @@
     .form {
       &__intro {
         h1 {
-          margin-bottom: 1rem;
+          margin-bottom: 0.5rem;
+          font-size: 24px;
+          color: $primary-clr;
+
         }
         p {
+          margin-bottom: 1rem;
           color: #667085;
+          font-size: 0.9rem;
         }
       }
 
