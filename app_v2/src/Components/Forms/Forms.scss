@@ -83,17 +83,18 @@
       text-transform: capitalize;
     }
 
-    .errorMessage {
-      color: #C52B2B;
-      background-color: rgba(#C52B2B, 0.1);
-      font-size: 0.8rem;
-      margin-top: 0.5rem;
-      text-align: center;
-      font-size: 0.9rem;
-      padding: 0.7rem;
-      border: 1px red solid;
-      border-radius: 3px;
-      text-transform: capitalize;
+    .error {
+      .form__label {
+        color: #C52B2B !important;
+      }
+
+      .form__input {
+        border-color: #C52B2B;
+      }
+
+      &__message {
+        color: #C52B2B;
+      }
     }
 
     &__input {
@@ -190,5 +191,27 @@
     font-size: 0.8rem;
     // height: 150px;
     // overflow-y: auto;
+  }
+
+  .submit-btn {
+    .btn__primary {
+      margin: 1rem 0 1rem 0;
+      width: calc(100% - 2rem);
+      padding-top: 0.8rem;
+      padding-bottom: 0.8rem;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+      align-items: center;
+      height: 20px;
+      margin-left: 1rem;
+
+      span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+    }
   }
 }

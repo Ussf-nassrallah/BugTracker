@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { decodeToken } from "react-jwt";
 // Components
 import LogoutAlertMessage from '../../Components/AlertMessages/LogoutAlertMessage';
 // Icons
@@ -14,10 +15,12 @@ import './Sidebar.scss'
 
 const Sidebar = () => {
   const [logoutAlert, setLogoutAlert] = useState(false);
-
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname;
+
+  const token = localStorage.getItem("token");
+  const user = decodeToken(token);
 
   const links = [
     {
@@ -96,8 +99,8 @@ const Sidebar = () => {
             <img src={Avatar} alt='avatar' />
           </div>
           <div className='profile__info__nr'>
-            <h4>Youssef Nasrallah</h4>
-            <p>Full-stack Web developer</p>
+            <h4>{user.username}</h4>
+            <p>{user.role}</p>
           </div>
         </div>
         <div className='logout' onClick={() => setLogoutAlert(true)}>

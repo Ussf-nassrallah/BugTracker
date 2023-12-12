@@ -1,35 +1,93 @@
-import React, { useState } from 'react';
-import Select from 'react-select'
+import React, { useState, useEffect } from 'react';
+import Select from 'react-select';
+import { decodeToken } from "react-jwt";
+import axios from 'axios';
 // Icons
 import { MdClose, MdOutlineCancel } from "react-icons/md";
 import { MdAdd } from "react-icons/md";
+import LoadingRoller from '../Loading/LoadingRoller';
 // Styles
 import './Forms.scss';
 
 const CreateProjectForm = ({setCreateProjectForm}) => {
-  const users = [
-    {
-      value: 0,
-      label: 'Youssef Nassrallah',
-    },
-    {
-      value: 1,
-      label: 'Redwan Ben Yechou',
-    }
-  ]
-
+  const [errorMessage, setErrorMessage] = useState({});
+  const [loading, setLoading] = useState(false);
+  // project Data
+  const [projectName, setProjectName] = useState(null);
+  const [projectDescription, setProjectDescription] = useState(null);
+  const [projectRepository, setProjectRepository] = useState(null);
+  // list of all users
+  const [users, setUsers] = useState([]);
+  // project members
   const [members, setMembers] = useState([]);
-  const [isSuccess, setIsSuccess] = useState(false);
+  // get user information : decodetoken
+  const token = localStorage.getItem("token");
+  const user = decodeToken(token);
+
+
+  const fetchUsers = async () => {
+    await axios
+      .get(`http://127.0.0.1:5000/api/v1/users`)
+      .then((data) => {
+        const transformedData = data.data.map((user) => {
+          return {
+            value: user.id,
+            label: user.username,
+          };
+        })
+        setUsers(transformedData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => { fetchUsers() }, []);
+
+  const handleProjects = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    function handleProjectRequest(obj) {
+      const keys = Object.keys(obj);
+      for (const keyIdx in keys) {
+        if (obj[keys[keyIdx]] === '' || obj[keys[keyIdx]] === null || obj[keys[keyIdx]].length === 0) {
+          delete obj[keys[keyIdx]];
+        }
+      }
+      return obj;
+    }
+
+    const request = handleProjectRequest({
+      created_by: user.id,
+      name: projectName,
+      description: projectDescription,
+      link_repo: projectRepository,
+      members: members,
+    });
+
+    // console.log(request);
+
+    await axios
+      .post("http://127.0.0.1:5000/api/v1/projects", request)
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.log(error.response.data.error);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+  };
+
 
   return (
     <div className="project__form">
-      <form className="form">
+      <form className="form" onSubmit={handleProjects}>
         <h2>Create a New Project</h2>
-        {isSuccess && (
-          <div className="successMessage">Project is Created Successfully</div>
-        )}
         {/* project name */}
-        <div>
+        <div className='form__div'>
           <label htmlFor="name" className="form__label">
             Project Title<span>*</span>
           </label>
@@ -39,12 +97,13 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
             type="text"
             className="form__input"
             placeholder="Project Title"
-            // onChange={(e) => setProjectName(e.target.value)}
+            onChange={(e) => setProjectName(e.target.value)}
           />
+          {/* <small className='error__message'>Missing project name</small> */}
         </div>
 
         {/* project Description */}
-        <div>
+        <div className='form__div'>
           <label htmlFor="description" className="form__label">
             Project Description<span>*</span>
           </label>
@@ -54,13 +113,13 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
             type="text"
             className="form__input"
             placeholder="Project Description"
-            // onChange={(e) => setProjectDescription(e.target.value)}
+            onChange={(e) => setProjectDescription(e.target.value)}
           ></textarea>
         </div>
 
         {/* project collaborators */}
-        <div>
-          <label for="collaborators" className="form__label">
+        <div className='form__div'>
+          <label htmlFor="collaborators" className="form__label">
             Project Collaborators<span>*</span>
           </label>
           {users && (
@@ -77,8 +136,8 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
         </div>
 
         {/* project repo */}
-        <div>
-          <label for="repository" className="form__label">
+        <div className='form__div'>
+          <label htmlFor="repository" className="form__label">
             Project Repository<span>*</span>
           </label>
           <input
@@ -87,7 +146,7 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
             type="text"
             className="form__input"
             placeholder="GitHub Repository link"
-            // onChange={(e) => setProjectRepository(e.target.value)}
+            onChange={(e) => setProjectRepository(e.target.value)}
           />
         </div>
 
@@ -97,7 +156,7 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
             <MdOutlineCancel className='icon' />Cancel
           </button>
           <button className='btn btn__primary'>
-            <MdAdd className='icon' />Create a new project
+            {loading ? <LoadingRoller /> : <span><MdAdd className='icon' />Create a new project</span>}
           </button>
         </div>
         <div className="close-icon" onClick={() => setCreateProjectForm(false)}>

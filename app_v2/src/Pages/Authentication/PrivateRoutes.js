@@ -5,8 +5,6 @@ const PrivateRoute = () => {
   const token = localStorage.getItem("token");
   let auth = { 'token': token };
 
-  console.log(token);
-
   return (
     auth.token !== null ? <Outlet /> : <Navigate to='/login' />
   )

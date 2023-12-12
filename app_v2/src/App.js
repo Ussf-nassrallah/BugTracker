@@ -4,7 +4,7 @@ import { Routes, Route } from 'react-router-dom';
 import PrivateRoutes from './Pages/Authentication/PrivateRoutes';
 
 // Components
-import Home from './Pages/Home/Home';
+// import Home from './Pages/Home/Home';
 import Register from './Pages/Authentication/Register/Register';
 import Login from './Pages/Authentication/Login/Login';
 import Sidebar from './Layout/Sidebar/Sidebar';
@@ -24,7 +24,10 @@ function App() {
 
       <Routes>
         {/* Public Routes */}
-        <Route path='/' element={<Home />} />
+        <Route path='/' Component={() => {
+          window.location.href = 'https://riyo3350g.github.io/';
+          return null;
+        }} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
 
