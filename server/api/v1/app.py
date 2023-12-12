@@ -14,7 +14,7 @@ app.register_blueprint(app_views)
 # CREATE USER 'ussef'@'localhost' IDENTIFIED BY 'Lacrim2017';
 # GRANT ALL PRIVILEGES ON *.* TO 'ussef'@'localhost' WITH GRANT OPTION;
 # FLUSH PRIVILEGES;
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://root:43211234@localhost/orm_db"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql://ussef:Lacrim2017@localhost/bt_db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)

@@ -60,8 +60,20 @@
       padding: 0;
       color: $primary-clr;
       font-size: 24px;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
       margin-bottom: 1rem;
-      text-align: center;
+      color: #667085;
+      font-size: 0.9rem;
+    }
+
+    small {
+      color: #41AC4C;
+      font-size: 0.9rem;
+      display: inline-block;
+      margin: 0 0 1rem 0;
     }
 
     .submit-btn {
@@ -88,7 +100,7 @@
         color: #C52B2B !important;
       }
 
-      .form__input {
+      .form__input, .css-13cymwt-control {
         border-color: #C52B2B;
       }
 
@@ -196,7 +208,7 @@
   .submit-btn {
     .btn__primary {
       margin: 1rem 0 1rem 0;
-      width: calc(100% - 2rem);
+      // width: calc(100% - 2rem);
       padding-top: 0.8rem;
       padding-bottom: 0.8rem;
       display: flex;
@@ -205,6 +217,7 @@
       align-items: center;
       height: 20px;
       margin-left: 1rem;
+      min-width: 200px;
 
       span {
         display: flex;

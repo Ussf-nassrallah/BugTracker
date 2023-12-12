@@ -11,6 +11,7 @@ import './Forms.scss';
 
 const CreateProjectForm = ({setCreateProjectForm}) => {
   const [errorMessage, setErrorMessage] = useState({});
+  const [successMessage, setSuccessMessage] = useState(false);
   const [loading, setLoading] = useState(false);
   // project Data
   const [projectName, setProjectName] = useState(null);
@@ -72,9 +73,15 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
       .post("http://127.0.0.1:5000/api/v1/projects", request)
       .then((data) => {
         console.log(data);
+        setSuccessMessage(true);
+        setErrorMessage({});
+        setInterval(() => {
+          setCreateProjectForm(false);
+        }, 7000);
       })
       .catch((error) => {
-        console.log(error.response.data.error);
+        // console.log(error.response.data.error);
+        setErrorMessage(error.response.data.error);
       })
       .finally(() => {
         setLoading(false);
@@ -86,8 +93,12 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
     <div className="project__form">
       <form className="form" onSubmit={handleProjects}>
         <h2>Create a New Project</h2>
+        <p>
+          For the purpose of industry regulation, your details are required.
+        </p>
+        {successMessage && <small>✅ Project created successfully</small>}
         {/* project name */}
-        <div className='form__div'>
+        <div className={errorMessage.name ? "error form__div" : "form__div"}>
           <label htmlFor="name" className="form__label">
             Project Title<span>*</span>
           </label>
@@ -99,11 +110,11 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
             placeholder="Project Title"
             onChange={(e) => setProjectName(e.target.value)}
           />
-          {/* <small className='error__message'>Missing project name</small> */}
+          {errorMessage.name && <small className='error__message'>{errorMessage.name}</small>}
         </div>
 
         {/* project Description */}
-        <div className='form__div'>
+        <div className={errorMessage.description ? "error form__div" : "form__div"}>
           <label htmlFor="description" className="form__label">
             Project Description<span>*</span>
           </label>
@@ -115,10 +126,11 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
             placeholder="Project Description"
             onChange={(e) => setProjectDescription(e.target.value)}
           ></textarea>
+          {errorMessage.description && <small className='error__message'>{errorMessage.description}</small>}
         </div>
 
         {/* project collaborators */}
-        <div className='form__div'>
+        <div className={errorMessage.members ? "error form__div" : "form__div"}>
           <label htmlFor="collaborators" className="form__label">
             Project Collaborators<span>*</span>
           </label>
@@ -133,10 +145,11 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
               }}
             />
           )}
+          {errorMessage.members && <small className='error__message'>{errorMessage.members}</small>}
         </div>
 
         {/* project repo */}
-        <div className='form__div'>
+        <div className={errorMessage.link_repo ? "error form__div" : "form__div"}>
           <label htmlFor="repository" className="form__label">
             Project Repository<span>*</span>
           </label>
@@ -148,6 +161,7 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
             placeholder="GitHub Repository link"
             onChange={(e) => setProjectRepository(e.target.value)}
           />
+          {errorMessage.link_repo && <small className='error__message'>{errorMessage.link_repo}</small>}
         </div>
 
         {/* submit */}
