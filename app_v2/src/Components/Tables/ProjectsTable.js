@@ -4,10 +4,12 @@ import { Link } from 'react-router-dom';
 import { MdArrowDownward } from "react-icons/md";
 // Components
 import DeleteAlertMssg from '../AlertMessages/DeleteAlertMssg';
+import UpdateProjectForm from '../Forms/UpdateProjectForm';
 // Styles
 import './Table.scss'
 
-const ProjectsTable = ({ projects, setUpdateProjectForm, user }) => {
+const ProjectsTable = ({ projects, user }) => {
+  const [updateProjectForm, setUpdateProjectForm] = useState(false);
   const [deleteAlertMessage, setDeleteAlertMessage] = useState(false);
   const [projectIdx, setProjectIdx] = useState(0);
 
@@ -16,12 +18,18 @@ const ProjectsTable = ({ projects, setUpdateProjectForm, user }) => {
     setProjectIdx(idx);
   }
 
+  const handleProjectUpdate = (idx) => {
+    setUpdateProjectForm(true);
+    setProjectIdx(idx);
+  }
+
+
   const generateActionButtons = (project, user, index) => {
     // console.log(project.created_by.id, user);
     if (project.created_by.id === user.id) {
       return (
         <td className='action__btns'>
-          <button className='action__btns__edit' onClick={() => setUpdateProjectForm(true)}>Edit</button>
+          <button className='action__btns__edit' onClick={() => handleProjectUpdate(index)}>Edit</button>
           <button className='action__btns__delete' onClick={() => handleProjectDelete(index)}>Delete</button>
         </td>
       )
@@ -61,9 +69,10 @@ const ProjectsTable = ({ projects, setUpdateProjectForm, user }) => {
               </Link>
             </td>
             <td>{project.members.map((m, idx) => <span className='member-tag' key={idx}>{m.username}</span>)}</td>
-            <td>12/5/2023 3:44</td>
+            <td>{project.created_at}</td>
             {generateActionButtons(project, user, index)}
             {deleteAlertMessage && <td><DeleteAlertMssg setDeleteAlertMessage={setDeleteAlertMessage} project={projects[projectIdx]} /></td>}
+            {updateProjectForm && <td><UpdateProjectForm setUpdateProjectForm={setUpdateProjectForm} project={projects[projectIdx]} /></td>}
           </tr>)}
         </tbody>
       </table>

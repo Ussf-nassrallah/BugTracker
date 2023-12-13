@@ -1,47 +1,70 @@
-import React, { useState } from 'react';
-import Select from 'react-select'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import Select from 'react-select';
+import axios from 'axios';
+// import { decodeToken } from 'react-jwt';
+import LoadingRoller from '../Loading/LoadingRoller';
 // Icons
-import { MdClose, MdAdd, MdOutlineCancel, MdEdit } from "react-icons/md";
+import { MdClose, MdOutlineCancel, MdEdit, MdOutlineWarning } from "react-icons/md";
 // Styles
 import './Forms.scss';
 
-const CreateProjectForm = ({setUpdateProjectForm, updateProjectForm}) => {
-  const users = [
-    {
-      value: 0,
-      label: 'Youssef Nassrallah',
-    },
-    {
-      value: 1,
-      label: 'Redwan Ben Yechou',
-    },
-    {
-      value: 2,
-      label: 'Iliass Fokhar',
-    },
-    {
-      value: 3,
-      label: 'Hamza Nait',
-    }
-  ]
+const UpdateProjectForm = ({ setUpdateProjectForm, project }) => {
+  const [errorMessage, setErrorMessage] = useState({});
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
+  // project Data
+  const [projectName, setProjectName] = useState(project.name);
+  const [projectDescription, setProjectDescription] = useState(project.description);
+  const [projectRepository, setProjectRepository] = useState(project.link_repo);
+  // list of all users
+  // const [users, setUsers] = useState([]);
+  // project members
+  // const [members, setMembers] = useState([]);
+  const navigate = useNavigate();
 
-  const [members, setMembers] = useState([]);
+  const handleProjectUpdate = async (e) => {
+    e.preventDefault();
+    setLoading(true);
 
-  const [isSuccess, setIsSuccess] = useState(false);
-  const [projectName, setProjectName] = useState("Fitness Tracker");
-  const [projectDescription, setProjectDescription] = useState("Track your fitness journey with this app. Log your workouts, monitor your progress, and set fitness goals. Includes charts and graphs to visualize your achievements.");
-  const [projectRepository, setProjectRepository] = useState("https://github.com/Ussf-nassrallah/BugTracker");
+    const request = {
+      name: projectName,
+      description: projectDescription,
+      link_repo: projectRepository
+    };
+
+    await axios
+      .put(`http://127.0.0.1:5000/api/v1/projects/${project.id}`, request)
+      .then((data) => {
+        // console.log(data);
+        setSuccessMessage(true);
+        setErrorMessage({});
+        setInterval(() => {
+          setUpdateProjectForm(false);
+          navigate('/dashboard/projects');
+        }, 5000);
+      })
+      .catch((error) => {
+        setErrorMessage(error.response.data.error);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+  };
+
+  // useEffect(() => { fetchUsers() }, []);
 
 
   return (
     <div className="project__form">
-      <form className="form">
+      <form className="form" onSubmit={handleProjectUpdate}>
         <h2>Update Project Information</h2>
-        {isSuccess && (
-          <div className="successMessage">Project is Created Successfully</div>
-        )}
+        <p>
+          For the purpose of industry regulation, your details are required.
+        </p>
+        {successMessage && <small>✅ Project Updated successfully</small>}
         {/* project name */}
-        <div>
+        <div className={errorMessage.name ? "error form__div" : "form__div"}>
           <label htmlFor="name" className="form__label">
             Project Title<span>*</span>
           </label>
@@ -54,10 +77,11 @@ const CreateProjectForm = ({setUpdateProjectForm, updateProjectForm}) => {
             value={projectName}
             onChange={(e) => setProjectName(e.target.value)}
           />
+          {errorMessage.name && <small className='error__message'>{errorMessage.name}</small>}
         </div>
 
         {/* project Description */}
-        <div>
+        <div className={errorMessage.description ? "error form__div" : "form__div"}>
           <label htmlFor="description" className="form__label">
             Project Description<span>*</span>
           </label>
@@ -70,11 +94,12 @@ const CreateProjectForm = ({setUpdateProjectForm, updateProjectForm}) => {
             value={projectDescription}
             onChange={(e) => setProjectDescription(e.target.value)}
           ></textarea>
+          {errorMessage.description && <small className='error__message'>{errorMessage.description}</small>}
         </div>
 
         {/* project collaborators */}
-        <div>
-          <label for="collaborators" className="form__label">
+        <div className={errorMessage.members ? "error form__div" : "form__div"}>
+          {/* <label htmlFor="collaborators" className="form__label">
             Project Collaborators<span>*</span>
           </label>
           {users && (
@@ -88,11 +113,13 @@ const CreateProjectForm = ({setUpdateProjectForm, updateProjectForm}) => {
               }}
             />
           )}
+          {errorMessage.members && <small className='error__message'>{errorMessage.members}</small>} */}
+          <p className='form__div__warning'><MdOutlineWarning className='icon' />stay tuned: in a few days you can update project collaborators</p>
         </div>
 
         {/* project repo */}
-        <div>
-          <label for="repository" className="form__label">
+        <div className={errorMessage.link_repo ? "error form__div" : "form__div"}>
+          <label htmlFor="repository" className="form__label">
             Project Repository<span>*</span>
           </label>
           <input
@@ -104,6 +131,7 @@ const CreateProjectForm = ({setUpdateProjectForm, updateProjectForm}) => {
             value={projectRepository}
             onChange={(e) => setProjectRepository(e.target.value)}
           />
+          {errorMessage.link_repo && <small className='error__message'>{errorMessage.link_repo}</small>}
         </div>
 
         {/* submit */}
@@ -112,7 +140,7 @@ const CreateProjectForm = ({setUpdateProjectForm, updateProjectForm}) => {
             <MdOutlineCancel className='icon' />Cancel
           </button>
           <button className='btn btn__secondary'>
-            <MdEdit className='icon' />Update
+            {loading ? <LoadingRoller /> : <span><MdEdit className='icon' />Update project</span>}
           </button>
         </div>
         <div className="close-icon" onClick={() => setUpdateProjectForm(false)}>
@@ -123,4 +151,4 @@ const CreateProjectForm = ({setUpdateProjectForm, updateProjectForm}) => {
   )
 }
 
-export default CreateProjectForm
+export default UpdateProjectForm

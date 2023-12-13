@@ -20,7 +20,6 @@ const Projects = () => {
   const [emptyProjectsList, setEmptyProjectsList] = useState(true);
   const [loading, setLoading] = useState(false);
   const [createProjectForm, setCreateProjectForm] = useState(false);
-  const [updateProjectForm, setUpdateProjectForm] = useState(false);
 
   const token = localStorage.getItem("token");
   const user = decodeToken(token);
@@ -88,7 +87,7 @@ const Projects = () => {
           {loading && <div className='projects__loading'>
             <LoadingRoller />
           </div>}
-          {userProjects.length === 0 ? <EmptyProjectsMssg /> : <ProjectsTable projects={uniqueUserProjects} setUpdateProjectForm={setUpdateProjectForm} user={user} />}
+          {userProjects.length === 0 ? <EmptyProjectsMssg /> : <ProjectsTable projects={uniqueUserProjects} user={user} />}
         </div>
 
         <div className='my__collab'>
@@ -97,15 +96,11 @@ const Projects = () => {
               My Collaborations <span className='length-tag'>{collaborations.length} Collab</span>
             </h3>
           </header>
-          {collaborations.length === 0 ? <ZeroCollabMssg /> : <ProjectsTable projects={collaborations} setUpdateProjectForm={setUpdateProjectForm} user={user} />}
+          {collaborations.length === 0 ? <ZeroCollabMssg /> : <ProjectsTable projects={collaborations} user={user} />}
         </div>
       </div>
 
       {createProjectForm && <CreateProjectForm setCreateProjectForm={setCreateProjectForm} />}
-      {updateProjectForm && <UpdateProjectForm
-        updateProjectForm={updateProjectForm}
-        setUpdateProjectForm={setUpdateProjectForm}
-      />}
     </div>
   )
 }

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { decodeToken } from "react-jwt";
 import { useParams } from 'react-router-dom';
+
 // Icons
 import { MdAdd, MdDelete, MdEdit } from "react-icons/md";
 // Components
@@ -72,6 +74,9 @@ const ProjectDetails = () => {
     },
   ];
 
+  const token = localStorage.getItem("token");
+  const user = decodeToken(token);
+
   const fetchProject = async () => {
     setLoading(true);
     await axios.get(`http://127.0.0.1:5000/api/v1/projects/${id}`)
@@ -106,6 +111,7 @@ const ProjectDetails = () => {
   }, []);
 
   const username = project.created_by ? project.created_by.username : null;
+  const userId = project.created_by ? project.created_by.id : null;
 
   if (loading) {
     return (
@@ -127,7 +133,7 @@ const ProjectDetails = () => {
           {project.name}
         </h3>
 
-        <div>
+        {user.id === userId && <div>
           <button className='btn btn__primary'>
             <MdAdd className='icon' />Create a new ticket
           </button>
@@ -139,7 +145,7 @@ const ProjectDetails = () => {
           <button className='btn btn__danger' onClick={() => setDeleteAlertMessage(true)}>
             <MdDelete className='icon' />Delete
           </button>
-        </div>
+        </div>}
       </header>
 
       <div className='project project__owner'>
@@ -192,6 +198,7 @@ const ProjectDetails = () => {
       {updateProjectForm && <UpdateProjectForm
         updateProjectForm={updateProjectForm}
         setUpdateProjectForm={setUpdateProjectForm}
+        project={project}
       />}
 
       {deleteAlertMessage && <DeleteAlertMssg setDeleteAlertMessage={setDeleteAlertMessage} project={project} />}

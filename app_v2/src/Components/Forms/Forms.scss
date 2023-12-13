@@ -3,6 +3,17 @@
 .form {
   &__div {
     margin-bottom: 1rem;
+
+    &__warning {
+      color: #ec8f02 !important;
+      display: flex;
+      align-items: center;
+      margin: 0 0 0.5rem 0 !important;
+      .icon {
+        font-size: 1.2rem;
+        margin-right: 0.4rem;
+      }
+    }
   }
   
   &__input {
@@ -60,13 +71,18 @@
       padding: 0;
       color: $primary-clr;
       font-size: 24px;
-      margin-bottom: 0.5rem;
+      padding-bottom: 1rem;
+
+      position: absolute;
+      left: 2rem;
+      top: 0.8rem;
     }
 
     p {
       margin-bottom: 1rem;
       color: #667085;
       font-size: 0.9rem;
+      margin-top: 1.5rem;
     }
 
     small {
@@ -206,7 +222,7 @@
   }
 
   .submit-btn {
-    .btn__primary {
+    .btn__primary, .btn__secondary {
       margin: 1rem 0 1rem 0;
       // width: calc(100% - 2rem);
       padding-top: 0.8rem;

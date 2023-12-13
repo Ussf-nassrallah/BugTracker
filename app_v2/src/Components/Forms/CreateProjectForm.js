@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { decodeToken } from "react-jwt";
 import axios from 'axios';
@@ -24,6 +25,8 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
   // get user information : decodetoken
   const token = localStorage.getItem("token");
   const user = decodeToken(token);
+
+  const navigate = useNavigate();
 
 
   const fetchUsers = async () => {
@@ -75,7 +78,8 @@ const CreateProjectForm = ({setCreateProjectForm}) => {
         setErrorMessage({});
         setInterval(() => {
           setCreateProjectForm(false);
-        }, 7000);
+          navigate('/dashboard/projects')
+        }, 5000);
       })
       .catch((error) => {
         setErrorMessage(error.response.data.error);
