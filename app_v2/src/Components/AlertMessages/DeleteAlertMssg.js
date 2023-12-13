@@ -2,6 +2,7 @@ import React from 'react';
 import { MdDelete, MdOutlineCancel } from "react-icons/md";
 
 const DeleteAlertMssg = ({ setDeleteAlertMessage, project }) => {
+  // console.log(project);
   return (
     <div className='alert__mssg'>
       <div className='alert__mssg__content'>

@@ -7,8 +7,36 @@ import DeleteAlertMssg from '../AlertMessages/DeleteAlertMssg';
 // Styles
 import './Table.scss'
 
-const ProjectsTable = ({projects, setUpdateProjectForm}) => {
+const ProjectsTable = ({ projects, setUpdateProjectForm, user }) => {
   const [deleteAlertMessage, setDeleteAlertMessage] = useState(false);
+  const [projectIdx, setProjectIdx] = useState(0);
+
+  const handleProjectDelete = (idx) => {
+    setDeleteAlertMessage(true);
+    setProjectIdx(idx);
+  }
+
+  const generateActionButtons = (project, user, index) => {
+    // console.log(project.created_by.id, user);
+    if (project.created_by.id === user.id) {
+      return (
+        <td className='action__btns'>
+          <button className='action__btns__edit' onClick={() => setUpdateProjectForm(true)}>Edit</button>
+          <button className='action__btns__delete' onClick={() => handleProjectDelete(index)}>Delete</button>
+        </td>
+      )
+    } else {
+      return (
+        <td className='action__btns'>
+          <button className='action__btns__edit'>
+            <Link to={`/dashboard/projects/${project.id}`}>
+              Details
+            </Link>
+          </button>
+        </td>
+      )
+    }
+  }
 
   return (
     <div>
@@ -34,15 +62,11 @@ const ProjectsTable = ({projects, setUpdateProjectForm}) => {
             </td>
             <td>{project.members.map((m, idx) => <span className='member-tag' key={idx}>{m.username}</span>)}</td>
             <td>12/5/2023 3:44</td>
-            <td className='action__btns'>
-              <button className='action__btns__edit' onClick={() => setUpdateProjectForm(true)}>Edit</button>
-              <button className='action__btns__delete' onClick={() => setDeleteAlertMessage(true)}>Delete</button>
-            </td>
+            {generateActionButtons(project, user, index)}
+            {deleteAlertMessage && <td><DeleteAlertMssg setDeleteAlertMessage={setDeleteAlertMessage} project={projects[projectIdx]} /></td>}
           </tr>)}
         </tbody>
       </table>
-
-      {deleteAlertMessage && <DeleteAlertMssg setDeleteAlertMessage={setDeleteAlertMessage} />}
     </div>
   )
 }

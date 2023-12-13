@@ -68,6 +68,10 @@ table {
             &:hover {
               background-color: $secondary-clr;
               color: #fff;
+              
+              a {
+                color: #fff;
+              }
             }
           }
 
