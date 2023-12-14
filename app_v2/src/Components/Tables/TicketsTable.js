@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // Icons
 import { MdArrowDownward } from "react-icons/md";
 
@@ -22,7 +23,9 @@ const TicketsTable = ({tickets}) => {
       </thead>
       <tbody>
         <tr>
-          <td>Fitness Tracking App</td>
+          <td>
+            <Link to={'/dashboard/tickets/:id'}>Fitness Tracking App</Link>
+          </td>
           <td className='ft'><span className='tag'>{featureTickets.length} Tickets</span></td>
           <td className='it'><span className='tag'>{issueTickets.length} Tickets</span></td>
           <td className='bt'><span className='tag'>{bugTickets.length} Tickets</span></td>

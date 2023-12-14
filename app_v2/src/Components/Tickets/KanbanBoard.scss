@@ -1,0 +1,28 @@
+@import '../../styles/helper/helper';
+
+.tickets__board {
+  margin-bottom: 2rem;
+  .column {
+    padding: 2rem;
+    background-color: #F7F7F7;
+    margin-right: 1rem;
+    min-width: 450px;
+    height: 550px;
+
+    -ms-overflow-style: none; /* for Internet Explorer, Edge */
+    scrollbar-width: none; /* for Firefox */
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      display: none; /* for Chrome, Safari, and Opera */
+    }
+
+    h4 {
+      font-size: 18px;
+      color: $secondary-clr;
+      margin-bottom: 1rem;
+    }
+  }
+
+  display: flex;
+}

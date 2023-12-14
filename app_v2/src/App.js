@@ -11,6 +11,7 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import Projects from './Pages/Dashboard/Projects';
 import ProjectDetails from './Pages/Dashboard/ProjectDetails';
 import Tickets from './Pages/Dashboard/Tickets';
+import ProjectTickets from './Pages/Dashboard/ProjectTickets';
 import Settings from './Pages/Dashboard/Settings';
 
 // Styles
@@ -34,6 +35,7 @@ function App() {
           <Route path="/dashboard/projects" element={<Projects exact />} />
           <Route path="/dashboard/projects/:id" element={<ProjectDetails />} exact />
           <Route path="/dashboard/tickets" element={<Tickets />} exact />
+          <Route path="/dashboard/tickets/:id" element={<ProjectTickets />} exact />
           <Route path="/dashboard/settings" element={<Settings />} exact />
         </Route>
       </Routes>
