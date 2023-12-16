@@ -16,7 +16,7 @@ const TicketsTable = ({ tickets, projects }) => {
         </tr>
       </thead>
       <tbody>
-        {projects.map((project, index) => <tr key={index}>
+        {projects && projects.map((project, index) => <tr key={index}>
           <td>
             <Link to={`/dashboard/tickets/${project.id}`}>{project.name}</Link>
           </td>

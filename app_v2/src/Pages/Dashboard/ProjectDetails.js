@@ -29,8 +29,6 @@ const ProjectDetails = () => {
   const token = localStorage.getItem("token");
   const user = decodeToken(token);
 
-  console.log(project);
-
   const fetchProject = async () => {
     setLoading(true);
     await axios.get(`http://127.0.0.1:5000/api/v1/projects/${id}`)
@@ -144,7 +142,7 @@ const ProjectDetails = () => {
           <h3 className='text__primary'>
             Tickets
           </h3>
-          <span className='length-tag'>{project.tickets.length} Tickets</span>
+          <span className='length-tag'>{project && project.tickets.length} Tickets</span>
         </div>
         <ProjectTicketsTable tickets={project.tickets} members={members} />
       </div>

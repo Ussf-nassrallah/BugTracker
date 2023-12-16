@@ -1,12 +1,28 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+// Components
+import UpdateTicketForm from '../Forms/UpdateTicketForm';
+import DeleteTicketAlertMssg from '../AlertMessages/DeleteTicketAlertMssg';
 // Icons
 import { MdArrowDownward } from "react-icons/md";
 // Styles
 import './Table.scss'
 
 const TicketsTable = ({ tickets, members }) => {
-  console.log(members);
+  const [updateTicketForm, setUpdateTicketForm] = useState(false);
+  const [deleteTicketAlertMssg, setDeleteTicketAlertMssg] = useState(false);
+  const [ticketIdx, setTicketIdx] = useState(0);
+
+  const handleTicketUpdate = (index) => {
+    setTicketIdx(index);
+    setUpdateTicketForm(true);
+  }
+
+  const handleTicketDelete = (index) => {
+    setTicketIdx(index);
+    setDeleteTicketAlertMssg(true);
+  }
+
   return (
     <table>
       <thead>
@@ -29,9 +45,11 @@ const TicketsTable = ({ tickets, members }) => {
           <td>{ticket.created_at}</td>
           <td>{ticket.updated_at}</td>
           <td className='action__btns'>
-            <button className='action__btns__edit'>Edit</button>
-            <button className='action__btns__delete'>Delete</button>
+            <button className='action__btns__edit' onClick={() => handleTicketUpdate(index)}>Edit</button>
+            <button className='action__btns__delete' onClick={() => handleTicketDelete(index)}>Delete</button>
           </td>
+          {updateTicketForm && <td><UpdateTicketForm setUpdateTicketForm={setUpdateTicketForm} ticket={tickets[ticketIdx]} /></td>}
+          {deleteTicketAlertMssg && <td><DeleteTicketAlertMssg setDeleteTicketAlertMssg={setDeleteTicketAlertMssg} ticket={tickets[ticketIdx]} /></td>}
         </tr>)}
       </tbody>
     </table>

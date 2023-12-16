@@ -15,7 +15,7 @@ const UpdateTicketForm = ({ setUpdateTicketForm, ticket }) => {
   // Ticket Data
   const [ticketName, setTicketName] = useState(ticket.title);
   const [ticketDescription, setTicketDescription] = useState(ticket.description);
-  const [ticketType, setTicketType] = useState(ticket.type);
+  const [ticketType, setTicketType] = useState(ticket.ticket_type);
   const [ticketStatus, setTicketStatus] = useState(ticket.status);
   // get user information : decodetoken
   const token = localStorage.getItem("token");
