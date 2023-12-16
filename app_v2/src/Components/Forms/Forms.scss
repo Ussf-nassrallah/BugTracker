@@ -25,9 +25,16 @@
     font-size: 0.9rem;
     outline: none;
 
+
     &:focus {
       border-color: $primary-clr;
       box-shadow: 0 0 10px rgba($primary-clr, 0.1);
+    }
+  }
+
+  select {
+    option {
+      color: #667085;
     }
   }
 
@@ -51,7 +58,7 @@
   transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
-  // z-index: 100;
+  z-index: 100;
 
   &::before {
     content: '';

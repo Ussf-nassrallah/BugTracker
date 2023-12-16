@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+// import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import Ticket from "./Ticket";
 
 // Styles
 import './KanbanBoard.scss';
-import './Ticket.scss';
 
 export default function KanbanBoard() {
   const [ticketsList, setTicketsList] = useState([
@@ -68,114 +67,131 @@ export default function KanbanBoard() {
   const inProgress = ticketsList.filter((ticket) => ticket.status === 'In Progress');
   const devComplete = ticketsList.filter((ticket) => ticket.status === 'Dev Complete');
 
-  const handleDragEnd = (result) => {
-    if (!result.destination) return; // Dropped outside the droppable area
+  // const handleDragEnd = (result) => {
+  //   if (!result.destination) return; // Dropped outside the droppable area
 
-    const sourceIndex = result.source.index;
-    const destinationIndex = result.destination.index;
+  //   const sourceIndex = result.source.index;
+  //   const destinationIndex = result.destination.index;
 
-    const updatedTicketsList = [...ticketsList];
-    const [draggedTicket] = updatedTicketsList.splice(sourceIndex, 1);
-    updatedTicketsList.splice(destinationIndex, 0, draggedTicket);
+  //   const updatedTicketsList = [...ticketsList];
+  //   const [draggedTicket] = updatedTicketsList.splice(sourceIndex, 1);
+  //   updatedTicketsList.splice(destinationIndex, 0, draggedTicket);
 
-    // Determine the status based on the destination droppableId
-    let newStatus;
-    switch (result.destination.droppableId) {
-      case 'proposed':
-        newStatus = 'Proposed';
-        break;
-      case 'inProgress':
-        newStatus = 'In Progress';
-        break;
-      case 'devComplete':
-        newStatus = 'Dev Complete';
-        break;
-      // Add more cases if you have additional columns
-      default:
-        newStatus = draggedTicket.status;
-    }
+  //   // Determine the status based on the destination droppableId
+  //   let newStatus;
+  //   switch (result.destination.droppableId) {
+  //     case 'proposed':
+  //       newStatus = 'Proposed';
+  //       break;
+  //     case 'inProgress':
+  //       newStatus = 'In Progress';
+  //       break;
+  //     case 'devComplete':
+  //       newStatus = 'Dev Complete';
+  //       break;
+  //     // Add more cases if you have additional columns
+  //     default:
+  //       newStatus = draggedTicket.status;
+  //   }
 
-    // Update the status of the dragged ticket
-    draggedTicket.status = newStatus;
+  //   // Update the status of the dragged ticket
+  //   draggedTicket.status = newStatus;
 
-    // Update your state with the modified tickets list
-    setTicketsList(updatedTicketsList);
-  };
+  //   // Update your state with the modified tickets list
+  //   setTicketsList(updatedTicketsList);
+  // };
 
 
   return (
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <div className="tickets__board">
-        {/* Proposed Column */}
-        <Droppable droppableId="proposed">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef} className="column">
-              <h4>Proposed</h4>
-              {proposed.map((ticket, index) => (
-                <Draggable key={ticket.id} draggableId={ticket.id.toString()} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <Ticket ticket={ticket} />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+    // <DragDropContext onDragEnd={handleDragEnd}>
+    //   <div className="tickets__board">
+    //     {/* Proposed Column */}
+    //     <Droppable droppableId="proposed">
+    //       {(provided) => (
+    //         <div {...provided.droppableProps} ref={provided.innerRef} className="column">
+    //           <h4>Proposed</h4>
+    //           {proposed.map((ticket, index) => (
+    //             <Draggable key={ticket.id} draggableId={ticket.id.toString()} index={index}>
+    //               {(provided) => (
+    //                 <div
+    //                   ref={provided.innerRef}
+    //                   {...provided.draggableProps}
+    //                   {...provided.dragHandleProps}
+    //                 >
+    //                   <Ticket ticket={ticket} />
+    //                 </div>
+    //               )}
+    //             </Draggable>
+    //           ))}
+    //           {provided.placeholder}
+    //         </div>
+    //       )}
+    //     </Droppable>
 
-        {/* In Progress Column */}
-        <Droppable droppableId="inProgress">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef} className="column">
-              <h4>In Progress</h4>
-              {inProgress.map((ticket, index) => (
-                <Draggable key={ticket.id} draggableId={ticket.id.toString()} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <Ticket ticket={ticket} />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+    //     {/* In Progress Column */}
+    //     <Droppable droppableId="inProgress">
+    //       {(provided) => (
+    //         <div {...provided.droppableProps} ref={provided.innerRef} className="column">
+    //           <h4>In Progress</h4>
+    //           {inProgress.map((ticket, index) => (
+    //             <Draggable key={ticket.id} draggableId={ticket.id.toString()} index={index}>
+    //               {(provided) => (
+    //                 <div
+    //                   ref={provided.innerRef}
+    //                   {...provided.draggableProps}
+    //                   {...provided.dragHandleProps}
+    //                 >
+    //                   <Ticket ticket={ticket} />
+    //                 </div>
+    //               )}
+    //             </Draggable>
+    //           ))}
+    //           {provided.placeholder}
+    //         </div>
+    //       )}
+    //     </Droppable>
 
-        {/* Dev Complete Column */}
-        <Droppable droppableId="devComplete">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef} className="column">
-              <h4>Dev Complete</h4>
-              {devComplete.map((ticket, index) => (
-                <Draggable key={ticket.id} draggableId={ticket.id.toString()} index={index}>
-                  {(provided) => (
-                    <div
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                    >
-                      <Ticket ticket={ticket} />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
+    //     {/* Dev Complete Column */}
+    //     <Droppable droppableId="devComplete">
+    //       {(provided) => (
+    //         <div {...provided.droppableProps} ref={provided.innerRef} className="column">
+    //           <h4>Dev Complete</h4>
+    //           {devComplete.map((ticket, index) => (
+    //             <Draggable key={ticket.id} draggableId={ticket.id.toString()} index={index}>
+    //               {(provided) => (
+    //                 <div
+    //                   ref={provided.innerRef}
+    //                   {...provided.draggableProps}
+    //                   {...provided.dragHandleProps}
+    //                 >
+    //                   <Ticket ticket={ticket} />
+    //                 </div>
+    //               )}
+    //             </Draggable>
+    //           ))}
+    //           {provided.placeholder}
+    //         </div>
+    //       )}
+    //     </Droppable>
+    //   </div>
+    // </DragDropContext>
+
+    <div className="tickets__board">
+      <div className="column" id="proposed">
+        <h4>Proposed</h4>
+        {proposed.map((ticket, index) => <Ticket key={index} ticket={ticket} />)}
       </div>
-    </DragDropContext>
+
+      <div className="column" id="inProgress">
+        <h4>Proposed</h4>
+        {inProgress.map((ticket, index) => <Ticket key={index} ticket={ticket} />)}
+      </div>
+
+      <div className="column" id="devComplete">
+        <h4>Proposed</h4>
+        {devComplete.map((ticket, index) => <Ticket key={index} ticket={ticket} />)}
+      </div>
+    </div>
 
   );
 }
