@@ -3,13 +3,7 @@ import { Link } from 'react-router-dom';
 // Icons
 import { MdArrowDownward } from "react-icons/md";
 
-const TicketsTable = ({tickets}) => {
-  // Filter tickets
-  const featureTickets = tickets.filter((ticket) => ticket.type === 'feature');
-  const issueTickets = tickets.filter((ticket) => ticket.type === 'issue');
-  const bugTickets = tickets.filter((ticket) => ticket.type === 'bug');
-
-
+const TicketsTable = ({ tickets, projects }) => {
   return (
     <table>
       <thead>
@@ -22,31 +16,31 @@ const TicketsTable = ({tickets}) => {
         </tr>
       </thead>
       <tbody>
-        <tr>
+        {projects.map((project, index) => <tr key={index}>
           <td>
-            <Link to={'/dashboard/tickets/:id'}>Fitness Tracking App</Link>
+            <Link to={`/dashboard/tickets/${project.id}`}>{project.name}</Link>
           </td>
-          <td className='ft'><span className='tag'>{featureTickets.length} Tickets</span></td>
-          <td className='it'><span className='tag'>{issueTickets.length} Tickets</span></td>
-          <td className='bt'><span className='tag'>{bugTickets.length} Tickets</span></td>
-          <td className='tt'><span className='tag'>{tickets.length} Tickets</span></td>
-        </tr>
 
-        <tr>
-          <td>Fitness Tracking App</td>
-          <td className='ft'><span className='tag'>{featureTickets.length} Tickets</span></td>
-          <td className='it'><span className='tag'>{issueTickets.length} Tickets</span></td>
-          <td className='bt'><span className='tag'>{bugTickets.length} Tickets</span></td>
-          <td className='tt'><span className='tag'>{tickets.length} Tickets</span></td>
-        </tr>
+          <td className='ft'>
+            <span className='tag'>
+              {project.tickets.filter((ticket) => ticket.ticket_type === 'feature').length} Tickets
+            </span>
+          </td>
 
-        <tr>
-          <td>Fitness Tracking App</td>
-          <td className='ft'><span className='tag'>{featureTickets.length} Tickets</span></td>
-          <td className='it'><span className='tag'>{issueTickets.length} Tickets</span></td>
-          <td className='bt'><span className='tag'>{bugTickets.length} Tickets</span></td>
-          <td className='tt'><span className='tag'>{tickets.length} Tickets</span></td>
-        </tr>
+          <td className='it'>
+            <span className='tag'>
+              {project.tickets.filter((ticket) => ticket.ticket_type === 'issue').length} Tickets
+            </span>
+          </td>
+
+          <td className='bt'>
+            <span className='tag'>
+              {project.tickets.filter((ticket) => ticket.ticket_type === 'bug').length} Tickets
+            </span>
+          </td>
+
+          <td className='tt'><span className='tag'>{project.tickets.length} Tickets</span></td>
+        </tr>)}
       </tbody>
     </table>
   )

@@ -10,10 +10,10 @@ import './Forms.scss';
 
 const UpdateTicketForm = ({ setUpdateTicketForm, ticket }) => {
   const [errorMessage, setErrorMessage] = useState({});
-  const [successMessage, setSuccessMessage] = useState(true);
-  const [loading, setLoading] = useState(true);
+  const [successMessage, setSuccessMessage] = useState(false);
+  const [loading, setLoading] = useState(false);
   // Ticket Data
-  const [ticketName, setTicketName] = useState(ticket.name);
+  const [ticketName, setTicketName] = useState(ticket.title);
   const [ticketDescription, setTicketDescription] = useState(ticket.description);
   const [ticketType, setTicketType] = useState(ticket.type);
   const [ticketStatus, setTicketStatus] = useState(ticket.status);
@@ -39,30 +39,29 @@ const UpdateTicketForm = ({ setUpdateTicketForm, ticket }) => {
 
     const request = {
       created_by: user.id,
-      parent_id: "project ID",
+      parent_id: ticket.parent_id,
       title: ticketName,
       description: ticketDescription,
       ticket_type: ticketType,
       status: ticketStatus,
     };
 
-    // await axios
-    //   .put(`http://127.0.0.1:5000/api/v1/projects/${project.id}`, request)
-    //   .then((data) => {
-    //     // console.log(data);
-    //     setSuccessMessage(true);
-    //     setErrorMessage({});
-    //     setInterval(() => {
-    //       setUpdateProjectForm(false);
-    //       navigate('/dashboard/projects');
-    //     }, 5000);
-    //   })
-    //   .catch((error) => {
-    //     setErrorMessage(error.response.data.error);
-    //   })
-    //   .finally(() => {
-    //     setLoading(false);
-    //   })
+    await axios
+      .put(`http://127.0.0.1:5000/api/v1/tickets/${ticket.id}`, request)
+      .then((data) => {
+        // console.log(data);
+        setSuccessMessage(true);
+        setErrorMessage({});
+        setInterval(() => {
+          setUpdateTicketForm(false);
+        }, 5000);
+      })
+      .catch((error) => {
+        setErrorMessage(error.response.data.error);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
   };
 
   // useEffect(() => { fetchUsers() }, []);
@@ -86,7 +85,7 @@ const UpdateTicketForm = ({ setUpdateTicketForm, ticket }) => {
             name="name"
             type="text"
             className="form__input"
-            placeholder="Project Title"
+            placeholder="Ticket Title"
             value={ticketName}
             onChange={(e) => setTicketName(e.target.value)}
           />

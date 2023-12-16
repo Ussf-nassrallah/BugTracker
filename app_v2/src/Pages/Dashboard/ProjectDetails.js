@@ -25,56 +25,6 @@ const ProjectDetails = () => {
   const [createTicketForm, setCreateTicketForm] = useState(false);
   // Access the id parameter using useParams
   let { id } = useParams();
-  const ticketTasks = [
-    {
-      id: 1,
-      name: "Style the table header to make it visually appealing.",
-      assignedTo: "Youssef Nassrallah",
-      type: "feature",
-      status: "To Do",
-      created_at: "2023-12-06T12:00:00Z", // Replace this with the actual creation date
-    },
-    {
-      id: 2,
-      name: "Implement sorting functionality for the 'Ticket owner' column.",
-      assignedTo: "Redwan ben yecho",
-      type: "bug",
-      status: "In Progress",
-      created_at: "2023-12-07T09:30:00Z", // Replace this with the actual creation date
-    },
-    {
-      id: 3,
-      name: "Add a confirmation dialog for delete actions.",
-      assignedTo: "Youssef Nassrallah",
-      type: "issue",
-      status: "To Do",
-      created_at: "2023-12-08T15:45:00Z", // Replace this with the actual creation date
-    },
-    {
-      id: 4,
-      name: "Create Edit functionality to update ticket information.",
-      assignedTo: "Redwan ben yecho",
-      type: "feature",
-      status: "To Do",
-      created_at: "2023-12-09T10:15:00Z", // Replace this with the actual creation date
-    },
-    {
-      id: 5,
-      name: "Apply formatting for the 'Created_at' column.",
-      assignedTo: "Youssef Nassrallah",
-      type: "issue",
-      status: "In Progress",
-      created_at: "2023-12-10T08:00:00Z", // Replace this with the actual creation date
-    },
-    {
-      id: 6,
-      name: "Add filtering options for the 'Ticket type' column.",
-      assignedTo: "Redwan ben yecho",
-      type: "feature",
-      status: "To Do",
-      created_at: "2023-12-11T14:20:00Z", // Replace this with the actual creation date
-    },
-  ];
 
   const token = localStorage.getItem("token");
   const user = decodeToken(token);
@@ -194,7 +144,7 @@ const ProjectDetails = () => {
           <h3 className='text__primary'>
             Tickets
           </h3>
-          <span className='length-tag'>6 Tickets</span>
+          <span className='length-tag'>{project.tickets.length} Tickets</span>
         </div>
         <ProjectTicketsTable tickets={project.tickets} members={members} />
       </div>

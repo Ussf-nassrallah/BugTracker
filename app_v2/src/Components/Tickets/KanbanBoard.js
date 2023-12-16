@@ -5,7 +5,7 @@ import Ticket from "./Ticket";
 // Styles
 import './KanbanBoard.scss';
 
-export default function KanbanBoard() {
+export default function KanbanBoard({ tickets }) {
   const [ticketsList, setTicketsList] = useState([
     {
       id: 1,
@@ -63,9 +63,9 @@ export default function KanbanBoard() {
     },
   ]);
 
-  const proposed = ticketsList.filter((ticket) => ticket.status === 'Proposed');
-  const inProgress = ticketsList.filter((ticket) => ticket.status === 'In Progress');
-  const devComplete = ticketsList.filter((ticket) => ticket.status === 'Dev Complete');
+  const proposed = tickets.filter((ticket) => ticket.status === 'Proposed');
+  const inProgress = tickets.filter((ticket) => ticket.status === 'In Progress');
+  const devComplete = tickets.filter((ticket) => ticket.status === 'Dev Complete');
 
   // const handleDragEnd = (result) => {
   //   if (!result.destination) return; // Dropped outside the droppable area
@@ -183,12 +183,12 @@ export default function KanbanBoard() {
       </div>
 
       <div className="column" id="inProgress">
-        <h4>Proposed</h4>
+        <h4>In Progress</h4>
         {inProgress.map((ticket, index) => <Ticket key={index} ticket={ticket} />)}
       </div>
 
       <div className="column" id="devComplete">
-        <h4>Proposed</h4>
+        <h4>Dev Completed</h4>
         {devComplete.map((ticket, index) => <Ticket key={index} ticket={ticket} />)}
       </div>
     </div>
