@@ -10,6 +10,7 @@ import Navbar from '../../Layout/Navbar/Navbar';
 import UpdateProjectForm from '../../Components/Forms/UpdateProjectForm'
 import DeleteAlertMssg from '../../Components/AlertMessages/DeleteAlertMssg';
 import LoadingRoller from '../../Components/Loading/LoadingRoller';
+import CreateTicketForm from '../../Components/Forms/CreateTicketForm';
 // Styles
 import './ProjectDetails.scss'
 import MembersTable from '../../Components/Tables/MembersTable';
@@ -21,6 +22,7 @@ const ProjectDetails = () => {
   const [updateProjectForm, setUpdateProjectForm] = useState(false);
   const [deleteAlertMessage, setDeleteAlertMessage] = useState(false);
   const [members, setMembers] = useState([]);
+  const [createTicketForm, setCreateTicketForm] = useState(false);
   // Access the id parameter using useParams
   let { id } = useParams();
   const ticketTasks = [
@@ -134,7 +136,7 @@ const ProjectDetails = () => {
         </h3>
 
         {user.id === userId && <div>
-          <button className='btn btn__primary'>
+          <button className='btn btn__primary' onClick={() => setCreateTicketForm(true)}>
             <MdAdd className='icon' />Create a new ticket
           </button>
 
@@ -194,6 +196,8 @@ const ProjectDetails = () => {
         </div>
         <ProjectTicketsTable tickets={ticketTasks} />
       </div>
+
+      {createTicketForm && <CreateTicketForm setCreateTicketForm={setCreateTicketForm} project={project} />}
 
       {updateProjectForm && <UpdateProjectForm
         updateProjectForm={updateProjectForm}

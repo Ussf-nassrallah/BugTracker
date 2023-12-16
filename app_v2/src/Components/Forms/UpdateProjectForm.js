@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 // import Select from 'react-select';
 import axios from 'axios';
 // import { decodeToken } from 'react-jwt';
@@ -21,7 +21,7 @@ const UpdateProjectForm = ({ setUpdateProjectForm, project }) => {
   // const [users, setUsers] = useState([]);
   // project members
   // const [members, setMembers] = useState([]);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleProjectUpdate = async (e) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ const UpdateProjectForm = ({ setUpdateProjectForm, project }) => {
         setErrorMessage({});
         setInterval(() => {
           setUpdateProjectForm(false);
-          navigate('/dashboard/projects');
+          // navigate('/dashboard/projects');
         }, 5000);
       })
       .catch((error) => {

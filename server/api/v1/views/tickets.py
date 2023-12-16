@@ -7,17 +7,40 @@ from models import storage
 from models.ticket import Ticket
 
 
+def validate_ticket_data(data):
+    required_fields = ["title", "description", "status", "ticket_type", "created_by", "parent_id"]
+    output = {}
+
+    for field in required_fields:
+        if field not in data:
+            output[field] = f"Missing required field: {field}"
+    
+    if len(output) != 0:
+        return False, output
+
+    # Additional validation logic can be added here based on your requirements
+    return True, None
+
 @app_views.route("/tickets", methods=["POST"])
 def create_ticket():
     """create ticket"""
-    title = request.json.get("title")
-    description = request.json.get("description")
-    created_by = request.json.get("created_by")
-    parent_id = request.json.get("parent_id")
-    ticket_type = request.json.get("ticket_type")
-    status = request.json.get("status")
-    if not title or not description or not status or not created_by or not parent_id:
-        return jsonify({"message": "Missing data", "status": 400}), 400
+    request_data = request.json
+
+    # Validate incoming data
+    is_valid, error_message = validate_ticket_data(request_data)
+    if not is_valid:
+        return jsonify({"error": error_message}), 400
+
+    title = request_data["title"]
+    description = request_data["description"]
+    created_by = request_data["created_by"]
+    parent_id = request_data["parent_id"]
+    ticket_type = request_data["ticket_type"]
+    status = request_data["status"]
+
+    # if not title or not description or not status or not created_by or not parent_id:
+    #     return jsonify({"message": "Missing data", "status": 400}), 400
+
     new_ticket = Ticket(
         title=title,
         description=description,
@@ -30,7 +53,10 @@ def create_ticket():
     )
     storage.new(new_ticket)
     storage.save()
-    return jsonify({"message": "ticket created successfully", "status": 201, "ticket": new_ticket.as_dict()}), 201
+    return jsonify({
+        "message": "ticket created successfully",
+        "status": 201,
+        "ticket": new_ticket.as_dict()}), 201
 
 
 @app_views.route("/tickets", methods=["GET"])
