@@ -13,54 +13,60 @@ import './Tickets.scss';
 
 const Tickets = () => {
   // const ticketTasks = [
-  //   {
-  //     id: 1,
-  //     name: "Style the table header to make it visually appealing.",
-  //     assignedTo: "Youssef Nassrallah",
-  //     type: "feature",
-  //     status: "To Do",
-  //     created_at: "2023-12-06T12:00:00Z", // Replace this with the actual creation date
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Implement sorting functionality for the 'Ticket owner' column.",
-  //     assignedTo: "Redwan ben yecho",
-  //     type: "bug",
-  //     status: "In Progress",
-  //     created_at: "2023-12-07T09:30:00Z", // Replace this with the actual creation date
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Add a confirmation dialog for delete actions.",
-  //     assignedTo: "Youssef Nassrallah",
-  //     type: "issue",
-  //     status: "To Do",
-  //     created_at: "2023-12-08T15:45:00Z", // Replace this with the actual creation date
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Create Edit functionality to update ticket information.",
-  //     assignedTo: "Redwan ben yecho",
-  //     type: "feature",
-  //     status: "To Do",
-  //     created_at: "2023-12-09T10:15:00Z", // Replace this with the actual creation date
-  //   },
-  //   {
-  //     id: 5,
-  //     name: "Apply formatting for the 'Created_at' column.",
-  //     assignedTo: "Youssef Nassrallah",
-  //     type: "issue",
-  //     status: "In Progress",
-  //     created_at: "2023-12-10T08:00:00Z", // Replace this with the actual creation date
-  //   },
-  //   {
-  //     id: 6,
-  //     name: "Add filtering options for the 'Ticket type' column.",
-  //     assignedTo: "Redwan ben yecho",
-  //     type: "feature",
-  //     status: "To Do",
-  //     created_at: "2023-12-11T14:20:00Z", // Replace this with the actual creation date
-  //   },
+  // {
+  //   id: 1,
+  //   name: "Style the table header to make it visually appealing.",
+  //   description: "Improve the visual appearance of the table header using modern styling.",
+  //   assignedTo: "Youssef Nassrallah",
+  //   type: "feature",
+  //   status: "Proposed",
+  //   created_at: "2023-12-06T12:00:00Z", // Replace this with the actual creation date
+  // },
+  // {
+  //   id: 2,
+  //   name: "Implement sorting functionality for the 'Ticket owner' column.",
+  //   description: "Enable users to sort the table based on the 'Ticket owner' column.",
+  //   assignedTo: "Redwan ben yecho",
+  //   type: "bug",
+  //   status: "In Progress",
+  //   created_at: "2023-12-07T09:30:00Z", // Replace this with the actual creation date
+  // },
+  // {
+  //   id: 3,
+  //   name: "Add a confirmation dialog for delete actions.",
+  //   description: "Prompt users with a confirmation dialog before deleting a ticket.",
+  //   assignedTo: "Youssef Nassrallah",
+  //   type: "issue",
+  //   status: "In Progress",
+  //   created_at: "2023-12-08T15:45:00Z", // Replace this with the actual creation date
+  // },
+  // {
+  //   id: 4,
+  //   name: "Create Edit functionality to update ticket information.",
+  //   description: "Implement the ability to edit and update ticket information.",
+  //   assignedTo: "Redwan ben yecho",
+  //   type: "feature",
+  //   status: "Proposed",
+  //   created_at: "2023-12-09T10:15:00Z", // Replace this with the actual creation date
+  // },
+  // {
+  //   id: 5,
+  //   name: "Apply formatting for the 'Created_at' column.",
+  //   description: "Format the 'Created_at' column to display dates in a user-friendly manner.",
+  //   assignedTo: "Youssef Nassrallah",
+  //   type: "issue",
+  //   status: "In Progress",
+  //   created_at: "2023-12-10T08:00:00Z", // Replace this with the actual creation date
+  // },
+  // {
+  //   id: 6,
+  //   name: "Add filtering options for the 'Ticket type' column.",
+  //   description: "Allow users to filter the table based on different 'Ticket type' values.",
+  //   assignedTo: "Redwan ben yecho",
+  //   type: "feature",
+  //   status: "Dev Complete",
+  //   created_at: "2023-12-11T14:20:00Z", // Replace this with the actual creation date
+  // },
   // ];
 
   const [projects, setProjects] = useState([]);

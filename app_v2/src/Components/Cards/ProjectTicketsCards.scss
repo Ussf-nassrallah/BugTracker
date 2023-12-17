@@ -1,0 +1,29 @@
+@import '../../styles/helper/helper';
+
+.project__tickets__cards {
+  padding: 0 2rem;
+
+  .tickets__types {
+    .card:nth-child(1) {
+      color: #1E3FF1;
+      background: rgba(#1E3FF1, 0.1);
+    }
+
+    .card:nth-child(2) {
+      color: #F80D1B;
+      background: rgba(#F80D1B, 0.1);
+    }
+
+    .card:nth-child(3) {
+      color: #41AC4C;
+      background: rgba(#41AC4C, 0.1);
+    }
+  }
+
+  .tickets__status, .tickets__types {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+}

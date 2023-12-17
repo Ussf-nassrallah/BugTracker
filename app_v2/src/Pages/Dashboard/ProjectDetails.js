@@ -86,10 +86,6 @@ const ProjectDetails = () => {
         </h3>
 
         {user.id === userId && <div>
-          <button className='btn btn__primary' onClick={() => setCreateTicketForm(true)}>
-            <MdAdd className='icon' />Create a new ticket
-          </button>
-
           <button className='btn btn__secondary' onClick={() => setUpdateProjectForm(true)}>
             <MdEdit className='icon' />Update project info
           </button>
@@ -98,6 +94,10 @@ const ProjectDetails = () => {
             <MdDelete className='icon' />Delete
           </button>
         </div>}
+
+        <button className='btn btn__primary' onClick={() => setCreateTicketForm(true)}>
+          <MdAdd className='icon' />Create a new ticket
+        </button>
       </header>
 
       <div className='project project__owner'>

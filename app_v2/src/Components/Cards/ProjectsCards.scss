@@ -1,0 +1,38 @@
+@import '../../styles/helper/helper';
+
+.projects__cards {
+  padding: 2rem;
+  // margin-bottom: 1rem;
+
+  h3 {
+    padding: 2rem !important;
+  }
+
+  &.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lds-roller {
+    transform: scale(0.7);
+    div:after {
+      background: $secondary-clr;
+    }
+  }
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+
+  .card:nth-child(1) {
+    background: rgb(22,26,48);
+    background: radial-gradient(circle, rgba(22,26,48,1) 10%, rgba(49,48,77,1) 50%);
+    color: #fff;
+  }
+
+  .card:nth-child(2) {
+    border-color: $secondary-clr;
+  }
+
+}
