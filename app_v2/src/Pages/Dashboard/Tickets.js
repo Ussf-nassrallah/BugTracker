@@ -70,6 +70,7 @@ const Tickets = () => {
   // ];
 
   const [projects, setProjects] = useState([]);
+  const [ticketsList, setTicketsList] = useState([]);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
 
@@ -93,13 +94,28 @@ const Tickets = () => {
         });
     };
 
+    const fetchTickets = async () => {
+      setLoading(true);
+      await axios.get(`http://127.0.0.1:5000/api/v1/users/${user.id}/tickets`)
+        .then((data) => {
+          setTicketsList(data.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+
     fetchProjects();
+    fetchTickets();
   }, []);
 
-  const userProjects = projects.filter(project => project.created_by.id === user.id);
+  // const userProjects = projects.filter(project => project.created_by.id === user.id);
   const uniqueIds = new Set();
 
-  const uniqueUserProjects = userProjects.filter(item => {
+  const uniqueUserProjects = projects.filter(item => {
     if (!uniqueIds.has(item.id)) {
       uniqueIds.add(item.id);
       return true;
@@ -116,7 +132,7 @@ const Tickets = () => {
       <div className='all__tickets'>
         <header className='tickets__header'>
           <h3 className='text__primary'>
-            <img src={TicketsIcon} alt='tickets-icon' /> Assigned Tickets <span className='length-tag'>??? Tickets</span>
+            <img src={TicketsIcon} alt='tickets-icon' /> Assigned Tickets <span className='length-tag'>{ticketsList.length} Tickets</span>
           </h3>
 
           <div>

@@ -85,7 +85,7 @@ const ProjectDetails = () => {
           {project.name}
         </h3>
 
-        {user.id === userId && <div>
+        {user.id === userId ? <div>
           <button className='btn btn__secondary' onClick={() => setUpdateProjectForm(true)}>
             <MdEdit className='icon' />Update project info
           </button>
@@ -93,11 +93,13 @@ const ProjectDetails = () => {
           <button className='btn btn__danger' onClick={() => setDeleteAlertMessage(true)}>
             <MdDelete className='icon' />Delete
           </button>
-        </div>}
 
-        <button className='btn btn__primary' onClick={() => setCreateTicketForm(true)}>
+          <button className='btn btn__primary' onClick={() => setCreateTicketForm(true)}>
+            <MdAdd className='icon' />Create a new ticket
+          </button>
+        </div> : <button className='btn btn__primary' onClick={() => setCreateTicketForm(true)}>
           <MdAdd className='icon' />Create a new ticket
-        </button>
+        </button>}
       </header>
 
       <div className='project project__owner'>
