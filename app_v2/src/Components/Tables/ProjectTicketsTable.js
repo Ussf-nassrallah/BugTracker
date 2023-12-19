@@ -38,7 +38,7 @@ const TicketsTable = ({ tickets, members }) => {
       </thead>
       <tbody>
         {tickets.map((ticket, index) => <tr key={index}>
-          <td>{members.find(m => m.id === ticket.created_by).username}</td>
+          <td>{members.find(m => m.id === ticket.created_by)?.username}</td>
           <td>{ticket.title}</td>
           <td>{ticket.ticket_type}</td>
           <td>{ticket.status}</td>

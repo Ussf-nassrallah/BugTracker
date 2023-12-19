@@ -134,7 +134,7 @@ const ProjectDetails = () => {
           <h3 className='text__primary'>
             Members
           </h3>
-          <span className='length-tag'>{members && members.length} Members</span>
+          <span className='length-tag'>{members.length} Members</span>
         </div>
         <MembersTable members={members} />
       </div>
@@ -144,7 +144,7 @@ const ProjectDetails = () => {
           <h3 className='text__primary'>
             Tickets
           </h3>
-          <span className='length-tag'>{project && project.tickets.length} Tickets</span>
+          <span className='length-tag'>{project && project.tickets && project.tickets.length} Tickets</span>
         </div>
         {project && project.tickets && <ProjectTicketsTable tickets={project.tickets} members={members} />}
       </div>

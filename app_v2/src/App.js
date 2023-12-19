@@ -22,10 +22,7 @@ function App() {
     <div className='container'>
       <Routes>
         {/* Public Routes */}
-        <Route path='/' Component={() => {
-          window.location.href = 'https://riyo3350g.github.io/';
-          return null;
-        }} />
+        <Route path='/' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
 
